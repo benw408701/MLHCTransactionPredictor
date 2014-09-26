@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLHCTransactionPredictor", "MLHCTransactionPredictor\MLHCTransactionPredictor.csproj", "{6421984E-224F-4CA7-AE23-34CDEDC1D14D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "encog-core-cs", "encog-core-cs\encog-core-cs.csproj", "{AC6FADF9-0904-4EBD-B22C-1C787C7E7A95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6421984E-224F-4CA7-AE23-34CDEDC1D14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6421984E-224F-4CA7-AE23-34CDEDC1D14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6421984E-224F-4CA7-AE23-34CDEDC1D14D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6FADF9-0904-4EBD-B22C-1C787C7E7A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6FADF9-0904-4EBD-B22C-1C787C7E7A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6FADF9-0904-4EBD-B22C-1C787C7E7A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6FADF9-0904-4EBD-B22C-1C787C7E7A95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

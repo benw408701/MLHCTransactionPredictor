@@ -1,1 +1,12 @@
 C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\bin\Debug\MLHCTransactionPredictor.exe.config
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\bin\Debug\MLHCTransactionPredictor.exe
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\bin\Debug\MLHCTransactionPredictor.pdb
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\bin\Debug\encog-core-cs.dll
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\bin\Debug\encog-core-cs.pdb
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\bin\Debug\encog-core-cs.xml
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.csprojResolveAssemblyReference.cache
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.frmMain.resources
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.Properties.Resources.resources
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.csproj.GenerateResource.Cache
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.exe
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.pdb
