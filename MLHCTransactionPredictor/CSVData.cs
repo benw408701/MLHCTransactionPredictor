@@ -12,7 +12,7 @@ namespace MLHCTransactionPredictor
         /// <summary>
         /// Data from the csv file as a list of a list of strings
         /// </summary>
-        private List<List<string>> m_data = new List<List<string>>();;
+        private List<List<string>> m_data = new List<List<string>>();
 
         /// <summary>
         /// Constructs a new CSVData object, needs a CSV file to open
@@ -45,6 +45,40 @@ namespace MLHCTransactionPredictor
         /// same encoding used for values.
         /// </summary>
         private void ProcessData()
+        {
+            // newWidth[n] = number of columns that column n will be converted to
+            int[] newWidth = new int[m_data[0].Count];
+            int column = 0; // Current column in loop
+
+            foreach(string header in m_data[0])
+            {
+                switch(header[0]) // Pull first character from column header
+                {
+                    case 's':
+                        newWidth[column] = 0;
+                        break;
+                    case 'v':
+                        flatten(column); // renumber identifiers
+                        break;
+                    case 't':
+                        break;
+                    case 'n':
+                    case 'o':
+                        newWidth[column] = 1;
+                        break;
+                    default:
+                        // raise an exception
+                        break;
+                }
+                column++;
+            }
+        }
+
+        /// <summary>
+        /// Take a value column and for each item renumber starting at 0
+        /// </summary>
+        /// <param name="colNum"></param>
+        private void flatten(int colNum)
         {
 
         }
