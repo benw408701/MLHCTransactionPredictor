@@ -1,7 +1,7 @@
 SELECT F.FileNumber, F.OfficeID, PC.PartnerCompanyID AS CoverageID, PROP.State, PROP.CountyID,
 		CASE WHEN S.Name = 'Cancelled' THEN '1' ELSE '0' END AS 'Cancelled',
 		PROD.ActionListProductTypeID, TRANS.ActionListTransactionTypeID,
-		DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), CL.DateClosed) AS NumDays, LN.LoanAmount,
+		DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), ISNULL(CL.DateClosed, 1000)) AS NumDays, LN.LoanAmount,
 		ISNULL(LI.[Lien Amounts], 0) AS [Lien Amounts], LN.LoanAmount - ISNULL(LI.[Lien Amounts], 0) AS Equity,
 		ISNULL(LI.Liens, 0) AS Liens,
 		(SELECT COUNT(*) FROM FileActions A WITH (NOLOCK) WHERE A.FileID = F.FileID) AS Actions,

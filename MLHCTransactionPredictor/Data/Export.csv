@@ -1,4 +1,4 @@
-sFileNumber,vOfficeID,vCoverageID,tState,vCountyID,vActionListProductTypeID,vActionListTransactionTypeID,nLoanAmount,nLien Amounts,nEquity,nLiens,nActions,nAudit Entries,nTotal Exceptions,nTotal Notes,oNumDays,oCancelled
+sFileNumber,vOfficeID,vCoverageID,vState,vCountyID,vActionListProductTypeID,vActionListTransactionTypeID,nLoanAmount,nLien Amounts,nEquity,nLiens,nActions,nAudit Entries,nTotal Exceptions,nTotal Notes,oNumDays,oCancelled
 17-500000,2,3860,UT,3136,1084,1010,111200,120000,-8800,1,52,1319,18,32,54,0
 17-500001,2,3863,CA,3232,1091,1010,415000,400000,15000,1,44,677,19,8,10000,1
 2301-200000,1,3863,CA,3257,2,2,322000,809250,-487250,1,80,1618,17,36,55,0
