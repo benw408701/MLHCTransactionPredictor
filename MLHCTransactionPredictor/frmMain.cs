@@ -23,12 +23,13 @@ namespace MLHCTransactionPredictor
         private void btnOpen_Click(object sender, EventArgs e)
         {
             var open = new OpenFileDialog();
-#if DEBUG
             txtMain.AppendText(String.Format("Open File Result: {0}{1}",open.ShowDialog().ToString(),
                 Environment.NewLine));
             txtMain.AppendText(String.Format("File Name: {0}{1}", open.FileName, Environment.NewLine));
-#endif
             m_data = new CSVData(open.FileName);
+
+            txtInputNodes.Text = m_data.InputNodes.ToString();
+            txtOutputNodes.Text = m_data.OutputNodes.ToString();
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
@@ -38,6 +39,9 @@ namespace MLHCTransactionPredictor
             else
                 MessageBox.Show("Data has not been loaded yet, please open a .csv file to load the data.", "Data Not Loaded",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            txtInputNodes.Text = m_data.InputNodes.ToString();
+            txtOutputNodes.Text = m_data.OutputNodes.ToString();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -54,13 +58,11 @@ namespace MLHCTransactionPredictor
         {
             if (m_data != null)
             {
-                for (int i = 0; i < (m_data.Rows <= 10 ? m_data.Rows : 10); i++)
+                for (int i = 1; i <= (m_data.Rows <= 10 ? m_data.Rows : 10); i++)
                 {
+                    txtMain.AppendText(String.Format("{1}Record #{0}{1}============={1}", i, Environment.NewLine));
                     for (int j = 0; j < m_data.Columns; j++)
-                    {
-                        txtMain.AppendText(String.Format("{0,15}", m_data[i, j]));
-                    }
-                    txtMain.AppendText(Environment.NewLine);
+                        txtMain.AppendText(String.Format("{0}: {1}{2}", m_data[0, j], m_data[i, j], Environment.NewLine));
                 }
             }
             else
@@ -70,7 +72,14 @@ namespace MLHCTransactionPredictor
 
         private void btnCreateNeuralNet_Click(object sender, EventArgs e)
         {
-            m_predictor = new Predictor(txtMain, m_data);
+            m_predictor = new Predictor(txtMain, m_data, Int32.Parse(txtHiddenNodes.Text));
+
+            btnTrain.Enabled = m_predictor.ReadyToTrain;
+        }
+
+        private void btnTrain_Click(object sender, EventArgs e)
+        {
+            m_predictor.Train(0.01, 500);
         }
     }
 }

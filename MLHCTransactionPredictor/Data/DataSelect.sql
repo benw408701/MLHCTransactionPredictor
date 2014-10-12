@@ -1,13 +1,13 @@
-SELECT F.FileNumber, F.OfficeID, PC.PartnerCompanyID AS CoverageID, PROP.State, PROP.CountyID,
-		CASE WHEN S.Name = 'Cancelled' THEN '1' ELSE '0' END AS 'Cancelled',
-		PROD.ActionListProductTypeID, TRANS.ActionListTransactionTypeID,
-		DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), ISNULL(CL.DateClosed, 1000)) AS NumDays, LN.LoanAmount,
-		ISNULL(LI.[Lien Amounts], 0) AS [Lien Amounts], LN.LoanAmount - ISNULL(LI.[Lien Amounts], 0) AS Equity,
-		ISNULL(LI.Liens, 0) AS Liens,
-		(SELECT COUNT(*) FROM FileActions A WITH (NOLOCK) WHERE A.FileID = F.FileID) AS Actions,
-		(SELECT COUNT(*) FROM Audit AD WITH (NOLOCK) WHERE AD.FileID = F.FileID) AS [Audit Entries],
-		(SELECT COUNT(*) FROM Lien L WITH (NOLOCK) WHERE L.FileID = F.FileID) AS [Total Exceptions],
-		(SELECT COUNT(*) FROM Note N WITH (NOLOCK) WHERE N.FileID = F.FileID) AS [Total Notes]
+SELECT F.FileNumber AS sFileNum, F.OfficeID AS vOffice, PC.Name AS vCoverageType, PROP.State AS vState,
+		PROP.CountyID AS vCountyID, CASE WHEN S.Name = 'Cancelled' THEN '1' ELSE '0' END AS oCancelled,
+		PROD.Name AS vProduct, TRANS.Name AS vTransaction,
+		ISNULL(DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), CL.DateClosed), 1000) AS oNumDays,
+		ISNULL (LN.LoanAmount, 0) AS nLoanAmount, ISNULL(LI.[Lien Amounts], 0) AS nLienAmounts,
+		ISNULL(LN.LoanAmount, 0) - ISNULL(LI.[Lien Amounts], 0) AS nEquity, ISNULL(LI.Liens, 0) AS nLiens,
+		(SELECT COUNT(*) FROM FileActions A WITH (NOLOCK) WHERE A.FileID = F.FileID) AS nActions,
+		(SELECT COUNT(*) FROM Audit AD WITH (NOLOCK) WHERE AD.FileID = F.FileID) AS nAuditEntries,
+		(SELECT COUNT(*) FROM Lien L WITH (NOLOCK) WHERE L.FileID = F.FileID) AS nTotalExceptions,
+		(SELECT COUNT(*) FROM Note N WITH (NOLOCK) WHERE N.FileID = F.FileID) AS nTotalNotes
 FROM	FileMain F WITH (NOLOCK)
 		INNER JOIN Status S WITH (NOLOCK) ON S.StatusID = F.StatusID
 		INNER JOIN Property PROP WITH (NOLOCK) ON PROP.PropertyID = F.PrimaryPropertyID

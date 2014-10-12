@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +14,9 @@ namespace MLHCTransactionPredictor
         /// </summary>
         private List<List<string>> m_data = new List<List<string>>();
 
+        private int m_inputNodes;
+        private int m_outputNodes;
+
         /// <summary>
         /// Total number of rows
         /// </summary>
@@ -29,6 +31,22 @@ namespace MLHCTransactionPredictor
         public int Columns
         {
             get { return m_data[0].Count; }
+        }
+
+        /// <summary>
+        /// Total number of output nodes
+        /// </summary>
+        public int OutputNodes
+        {
+            get { return m_outputNodes; }
+        }
+
+        /// <summary>
+        /// Total number of input nodes
+        /// </summary>
+        public int InputNodes
+        {
+            get { return m_inputNodes; }
         }
 
         /// <summary>
@@ -55,6 +73,9 @@ namespace MLHCTransactionPredictor
             while (!reader.EndOfStream)
                 m_data.Add(reader.ReadLine().Split(',').ToList());
             reader.Close();
+
+            // Count the number of input and output nodes
+            CountNodes();
         }
 
         /// <summary>
@@ -83,6 +104,24 @@ namespace MLHCTransactionPredictor
                 }
                 else
                     column++;
+
+            // Compute the number of input and output nodes
+            CountNodes();
+
+        }
+
+        /// <summary>
+        /// Compute the number of input and output nodes
+        /// </summary>
+        private void CountNodes()
+        {
+            m_outputNodes = m_inputNodes = 0;
+
+            for (int i = 0; i < m_data[0].Count; i++)
+                if (m_data[0][i][0] == 'o')
+                    m_outputNodes++;
+                else if (m_data[0][i][0] != 's')
+                    m_inputNodes++;
         }
 
         /// <summary>
