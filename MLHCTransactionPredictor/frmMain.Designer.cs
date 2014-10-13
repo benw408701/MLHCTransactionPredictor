@@ -41,6 +41,8 @@
             this.lblOutputNodes = new System.Windows.Forms.Label();
             this.txtOutputNodes = new System.Windows.Forms.TextBox();
             this.btnTrain = new System.Windows.Forms.Button();
+            this.btnAnalyze = new System.Windows.Forms.Button();
+            this.btnOutputNormalized = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtMain
@@ -74,6 +76,7 @@
             // 
             // btnProcess
             // 
+            this.btnProcess.Enabled = false;
             this.btnProcess.Location = new System.Drawing.Point(12, 41);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(109, 23);
@@ -94,7 +97,8 @@
             // 
             // btnCreateNeuralNet
             // 
-            this.btnCreateNeuralNet.Location = new System.Drawing.Point(128, 99);
+            this.btnCreateNeuralNet.Enabled = false;
+            this.btnCreateNeuralNet.Location = new System.Drawing.Point(127, 70);
             this.btnCreateNeuralNet.Name = "btnCreateNeuralNet";
             this.btnCreateNeuralNet.Size = new System.Drawing.Size(109, 23);
             this.btnCreateNeuralNet.TabIndex = 6;
@@ -104,7 +108,7 @@
             // 
             // txtHiddenNodes
             // 
-            this.txtHiddenNodes.Location = new System.Drawing.Point(212, 12);
+            this.txtHiddenNodes.Location = new System.Drawing.Point(324, 9);
             this.txtHiddenNodes.Name = "txtHiddenNodes";
             this.txtHiddenNodes.Size = new System.Drawing.Size(25, 20);
             this.txtHiddenNodes.TabIndex = 7;
@@ -113,7 +117,7 @@
             // lblHiddenNodes
             // 
             this.lblHiddenNodes.AutoSize = true;
-            this.lblHiddenNodes.Location = new System.Drawing.Point(128, 15);
+            this.lblHiddenNodes.Location = new System.Drawing.Point(240, 12);
             this.lblHiddenNodes.Name = "lblHiddenNodes";
             this.lblHiddenNodes.Size = new System.Drawing.Size(78, 13);
             this.lblHiddenNodes.TabIndex = 8;
@@ -122,7 +126,7 @@
             // lblInputNodes
             // 
             this.lblInputNodes.AutoSize = true;
-            this.lblInputNodes.Location = new System.Drawing.Point(128, 42);
+            this.lblInputNodes.Location = new System.Drawing.Point(240, 39);
             this.lblInputNodes.Name = "lblInputNodes";
             this.lblInputNodes.Size = new System.Drawing.Size(68, 13);
             this.lblInputNodes.TabIndex = 9;
@@ -130,7 +134,7 @@
             // 
             // txtInputNodes
             // 
-            this.txtInputNodes.Location = new System.Drawing.Point(212, 39);
+            this.txtInputNodes.Location = new System.Drawing.Point(324, 36);
             this.txtInputNodes.Name = "txtInputNodes";
             this.txtInputNodes.ReadOnly = true;
             this.txtInputNodes.Size = new System.Drawing.Size(25, 20);
@@ -139,7 +143,7 @@
             // lblOutputNodes
             // 
             this.lblOutputNodes.AutoSize = true;
-            this.lblOutputNodes.Location = new System.Drawing.Point(128, 69);
+            this.lblOutputNodes.Location = new System.Drawing.Point(240, 66);
             this.lblOutputNodes.Name = "lblOutputNodes";
             this.lblOutputNodes.Size = new System.Drawing.Size(76, 13);
             this.lblOutputNodes.TabIndex = 11;
@@ -147,7 +151,7 @@
             // 
             // txtOutputNodes
             // 
-            this.txtOutputNodes.Location = new System.Drawing.Point(212, 66);
+            this.txtOutputNodes.Location = new System.Drawing.Point(324, 63);
             this.txtOutputNodes.Name = "txtOutputNodes";
             this.txtOutputNodes.ReadOnly = true;
             this.txtOutputNodes.Size = new System.Drawing.Size(25, 20);
@@ -156,7 +160,7 @@
             // btnTrain
             // 
             this.btnTrain.Enabled = false;
-            this.btnTrain.Location = new System.Drawing.Point(243, 99);
+            this.btnTrain.Location = new System.Drawing.Point(127, 99);
             this.btnTrain.Name = "btnTrain";
             this.btnTrain.Size = new System.Drawing.Size(109, 23);
             this.btnTrain.TabIndex = 13;
@@ -164,11 +168,35 @@
             this.btnTrain.UseVisualStyleBackColor = true;
             this.btnTrain.Click += new System.EventHandler(this.btnTrain_Click);
             // 
+            // btnAnalyze
+            // 
+            this.btnAnalyze.Enabled = false;
+            this.btnAnalyze.Location = new System.Drawing.Point(128, 11);
+            this.btnAnalyze.Name = "btnAnalyze";
+            this.btnAnalyze.Size = new System.Drawing.Size(108, 23);
+            this.btnAnalyze.TabIndex = 14;
+            this.btnAnalyze.Text = "Analyze";
+            this.btnAnalyze.UseVisualStyleBackColor = true;
+            this.btnAnalyze.Click += new System.EventHandler(this.btnAnalyze_Click);
+            // 
+            // btnOutputNormalized
+            // 
+            this.btnOutputNormalized.Enabled = false;
+            this.btnOutputNormalized.Location = new System.Drawing.Point(127, 41);
+            this.btnOutputNormalized.Name = "btnOutputNormalized";
+            this.btnOutputNormalized.Size = new System.Drawing.Size(109, 23);
+            this.btnOutputNormalized.TabIndex = 15;
+            this.btnOutputNormalized.Text = "Output Normalized";
+            this.btnOutputNormalized.UseVisualStyleBackColor = true;
+            this.btnOutputNormalized.Click += new System.EventHandler(this.btnOutputNormalized_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 455);
+            this.Controls.Add(this.btnOutputNormalized);
+            this.Controls.Add(this.btnAnalyze);
             this.Controls.Add(this.btnTrain);
             this.Controls.Add(this.txtOutputNodes);
             this.Controls.Add(this.lblOutputNodes);
@@ -204,6 +232,8 @@
         private System.Windows.Forms.Label lblOutputNodes;
         private System.Windows.Forms.TextBox txtOutputNodes;
         private System.Windows.Forms.Button btnTrain;
+        private System.Windows.Forms.Button btnAnalyze;
+        private System.Windows.Forms.Button btnOutputNormalized;
     }
 }
 

@@ -1,9 +1,16 @@
-﻿using System;
+﻿using Encog.App.Analyst;
+using Encog.App.Analyst.CSV.Normalize;
+using Encog.App.Analyst.Script.Normalize;
+using Encog.App.Analyst.Wizard;
+using Encog.Util.Arrayutil;
+using Encog.Util.CSV;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MLHCTransactionPredictor
 {
@@ -16,6 +23,8 @@ namespace MLHCTransactionPredictor
 
         private int m_inputNodes;
         private int m_outputNodes;
+        private EncogAnalyst m_analyst;
+        private string m_fileName;
 
         /// <summary>
         /// Total number of rows
@@ -76,6 +85,57 @@ namespace MLHCTransactionPredictor
 
             // Count the number of input and output nodes
             CountNodes();
+
+            m_fileName = fileName;
+        }
+
+        public void Analyze(TextBox txtOut)
+        {
+            // Use analyst
+            m_analyst = new EncogAnalyst();
+            var source = new FileInfo(m_fileName);
+            var wizard = new AnalystWizard(m_analyst);
+
+            wizard.Wizard(source, true, AnalystFileFormat.DecpntComma);
+
+            // Customize analyst
+            foreach (AnalystField field in m_analyst.Script.Normalize.NormalizedFields)
+            {
+                switch (field.Name[0])
+                {
+                    case 's':
+                        field.Action = NormalizationAction.Ignore;
+                        break;
+                    case 'v':
+                        if (field.Action != NormalizationAction.OneOf && field.Action != NormalizationAction.Equilateral)
+                        {
+                            field.Action = NormalizationAction.Equilateral;
+                        }
+                        break;
+                    case 'n':
+                        field.Action = NormalizationAction.Normalize;
+                        break;
+                }
+
+                field.NormalizedLow = 0;
+            }
+
+            txtOut.AppendText("Fields found in file:" + Environment.NewLine);
+            foreach (AnalystField field in m_analyst.Script.Normalize.NormalizedFields)
+                txtOut.AppendText(String.Format("{0}, action = {1}, min = {2}, max = {3}{4}",
+                    field.Name, field.Action, field.ActualLow, field.ActualHigh, Environment.NewLine));
+        }
+
+        public void Normalize(string outputFileName)
+        {
+            var norm = new AnalystNormalizeCSV();
+            var source = new FileInfo(m_fileName);
+            var target = new FileInfo(outputFileName);
+
+            norm.Analyze(source, true, CSVFormat.English, m_analyst);
+
+            norm.ProduceOutputHeaders = true;
+            norm.Normalize(target);
         }
 
         /// <summary>

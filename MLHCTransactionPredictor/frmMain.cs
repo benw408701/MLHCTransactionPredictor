@@ -30,6 +30,9 @@ namespace MLHCTransactionPredictor
 
             txtInputNodes.Text = m_data.InputNodes.ToString();
             txtOutputNodes.Text = m_data.OutputNodes.ToString();
+
+            btnProcess.Enabled = true;
+            btnAnalyze.Enabled = true;
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
@@ -42,6 +45,8 @@ namespace MLHCTransactionPredictor
 
             txtInputNodes.Text = m_data.InputNodes.ToString();
             txtOutputNodes.Text = m_data.OutputNodes.ToString();
+
+            btnCreateNeuralNet.Enabled = true;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -80,6 +85,22 @@ namespace MLHCTransactionPredictor
         private void btnTrain_Click(object sender, EventArgs e)
         {
             m_predictor.Train(0.01, 500);
+        }
+
+        private void btnAnalyze_Click(object sender, EventArgs e)
+        {
+            m_data.Analyze(txtMain);
+
+            btnOutputNormalized.Enabled = true;
+        }
+
+        private void btnOutputNormalized_Click(object sender, EventArgs e)
+        {
+            var save = new SaveFileDialog();
+
+            save.ShowDialog();
+
+            m_data.Normalize(save.FileName);
         }
     }
 }
