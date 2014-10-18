@@ -23,13 +23,13 @@ namespace MLHCTransactionPredictor
             get { return !(m_train == null); }
         }
 
-        public Predictor(TextBox txtOutput, CSVData data, int hiddenNodes)
+        public Predictor(TextBox txtOutput, CSVData data, int hiddenNodes, double percentValidation)
         {
             m_txtOutputWindow = txtOutput;
             m_data = data;
 
             // Populate the input and output arrays
-            LoadData();
+            LoadData(percentValidation);
 
             // Create Neural Network
             m_network = new BasicNetwork();
@@ -39,7 +39,7 @@ namespace MLHCTransactionPredictor
             m_network.Structure.FinalizeStructure();
             m_network.Reset();
 
-            m_train = new Backpropagation(m_network, new BasicMLDataSet(m_input, m_output));
+            m_train = new Backpropagation(m_network, new BasicMLDataSet(m_inputTraining, m_outputTraining));
         }
 
         public void Train(double error, int maxIterations = 1000)
@@ -52,30 +52,59 @@ namespace MLHCTransactionPredictor
             } while (m_train.Error > error && m_train.IterationNumber < maxIterations);
         }
 
-        private void LoadData()
+        private void LoadData(double percentValidation)
         {
             int outCol, inCol; // column numbers for the input node and output node arrays
-            m_input = new double[m_data.Rows - 1][];
-            m_output = new double[m_data.Rows - 1][];
+            int validationSetSize, trainingSetSize;
 
-            for (int i = 0; i < m_data.Rows - 1; i++)
+            validationSetSize = (int)Math.Round((m_data.Rows - 1) * percentValidation);
+            trainingSetSize = (int)Math.Round((m_data.Rows - 1) * (1 - percentValidation));
+
+            m_inputTraining = new double[trainingSetSize][];
+            m_outputTraining = new double[trainingSetSize][];
+            m_inputValidation = new double[validationSetSize][];
+            m_outputValidation = new double[validationSetSize][];
+
+            for (int i = 0; i < trainingSetSize; i++)
             {
                 // Initialize node rows
-                outCol = inCol = 0; 
-                m_input[i] = new double[m_data.InputNodes];
-                m_output[i] = new double[m_data.OutputNodes];
+                outCol = inCol = 0;
+                m_inputTraining[i] = new double[m_data.InputNodes];
+                m_outputTraining[i] = new double[m_data.OutputNodes];
                 for (int j = 0; j < m_data.Columns; j++)
                 {
                     // Ouput Row
-                    if (m_data[0,j][0] == 'o')
+                    if (m_data[0, j][0] == 'o')
                     {
-                        m_output[i][outCol] = Double.Parse(m_data[i + 1, j]);
+                        m_outputTraining[i][outCol] = Double.Parse(m_data[i + 1, j]);
                         outCol++;
                     }
                     // Input Row
-                    else if(m_data[0,j][0] != 's')
+                    else if (m_data[0, j][0] != 's')
                     {
-                        m_input[i][inCol] = Double.Parse(m_data[i + 1, j]);
+                        m_inputTraining[i][inCol] = Double.Parse(m_data[i + 1, j]);
+                        inCol++;
+                    }
+                }
+            }
+            for (int i = 0; i < validationSetSize; i++)
+            {
+                // Initialize node rows
+                outCol = inCol = 0;
+                m_inputValidation[i] = new double[m_data.InputNodes];
+                m_outputValidation[i] = new double[m_data.OutputNodes];
+                for (int j = 0; j < m_data.Columns; j++)
+                {
+                    // Ouput Row
+                    if (m_data[0, j][0] == 'o')
+                    {
+                        m_outputValidation[i][outCol] = Double.Parse(m_data[i + 1, j]);
+                        outCol++;
+                    }
+                    // Input Row
+                    else if (m_data[0, j][0] != 's')
+                    {
+                        m_inputValidation[i][inCol] = Double.Parse(m_data[i + 1, j]);
                         inCol++;
                     }
                 }
@@ -86,7 +115,10 @@ namespace MLHCTransactionPredictor
         private CSVData m_data;
         private BasicNetwork m_network;
         private Backpropagation m_train;
-        private double[][] m_input;
-        private double[][] m_output;
+        private double[][] m_inputTraining;
+        private double[][] m_outputTraining;
+
+        private double[][] m_inputValidation;
+        private double[][] m_outputValidation;
     }
 }

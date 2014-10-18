@@ -30,23 +30,19 @@ namespace MLHCTransactionPredictor
 
             txtInputNodes.Text = m_data.InputNodes.ToString();
             txtOutputNodes.Text = m_data.OutputNodes.ToString();
+            txtTotalRecords.Text = (m_data.Rows - 1).ToString();
+            UpdateTrainingSetSize();
 
-            btnProcess.Enabled = true;
+            btnCreateNeuralNet.Enabled = true;
             btnAnalyze.Enabled = true;
         }
 
-        private void btnProcess_Click(object sender, EventArgs e)
+        private void UpdateTrainingSetSize()
         {
-            if (m_data != null)
-                m_data.ProcessData();
-            else
-                MessageBox.Show("Data has not been loaded yet, please open a .csv file to load the data.", "Data Not Loaded",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            double percent = Double.Parse(txtPercentValidation.Text) * .01;
 
-            txtInputNodes.Text = m_data.InputNodes.ToString();
-            txtOutputNodes.Text = m_data.OutputNodes.ToString();
-
-            btnCreateNeuralNet.Enabled = true;
+            txtValidationSetSize.Text = Math.Round((m_data.Rows - 1) * percent).ToString();
+            txtTrainingSetSize.Text = Math.Round((m_data.Rows - 1) * (1 - percent)).ToString();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -77,7 +73,8 @@ namespace MLHCTransactionPredictor
 
         private void btnCreateNeuralNet_Click(object sender, EventArgs e)
         {
-            m_predictor = new Predictor(txtMain, m_data, Int32.Parse(txtHiddenNodes.Text));
+            m_predictor = new Predictor(txtMain, m_data, Int32.Parse(txtHiddenNodes.Text),
+                Double.Parse(txtPercentValidation.Text) * .01);
 
             btnTrain.Enabled = m_predictor.ReadyToTrain;
         }
@@ -98,9 +95,16 @@ namespace MLHCTransactionPredictor
         {
             var save = new SaveFileDialog();
 
+            save.DefaultExt = ".csv";
+
             save.ShowDialog();
 
             m_data.Normalize(save.FileName);
+        }
+
+        private void txtPercentValidation_TextChanged(object sender, EventArgs e)
+        {
+            UpdateTrainingSetSize();
         }
     }
 }

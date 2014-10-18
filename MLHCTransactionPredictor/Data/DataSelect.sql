@@ -1,13 +1,17 @@
-SELECT F.FileNumber AS sFileNum, F.OfficeID AS vOffice, PC.Name AS vCoverageType, PROP.State AS vState,
-		PROP.CountyID AS vCountyID, CASE WHEN S.Name = 'Cancelled' THEN '1' ELSE '0' END AS oCancelled,
-		PROD.Name AS vProduct, TRANS.Name AS vTransaction,
-		ISNULL(DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), CL.DateClosed), 1000) AS oNumDays,
+SELECT	F.FileNumber AS sFileNumber, F.OfficeID AS vOffice, PC.PartnerCompanyID AS vCoverageType, PROP.State AS vState,
+		CASE WHEN PATINDEX('%(%', PROD.DisplayName) > 0
+		THEN SUBSTRING(PROD.DisplayName, 0, PATINDEX('%(%', PROD.DisplayName) - 1)
+		ELSE PROD.DisplayName
+		END AS vProduct,
+		TRANS.Name AS vTransaction,
 		ISNULL (LN.LoanAmount, 0) AS nLoanAmount, ISNULL(LI.[Lien Amounts], 0) AS nLienAmounts,
-		ISNULL(LN.LoanAmount, 0) - ISNULL(LI.[Lien Amounts], 0) AS nEquity, ISNULL(LI.Liens, 0) AS nLiens,
+		ISNULL(LN.LoanAmount, 0) - ISNULL(LI.[Lien Amounts], 0) AS nEquity, CONVERT(DECIMAL(16, 1), ISNULL(LI.Liens, 0)) AS nLiens,
 		(SELECT COUNT(*) FROM FileActions A WITH (NOLOCK) WHERE A.FileID = F.FileID) AS nActions,
 		(SELECT COUNT(*) FROM Audit AD WITH (NOLOCK) WHERE AD.FileID = F.FileID) AS nAuditEntries,
 		(SELECT COUNT(*) FROM Lien L WITH (NOLOCK) WHERE L.FileID = F.FileID) AS nTotalExceptions,
-		(SELECT COUNT(*) FROM Note N WITH (NOLOCK) WHERE N.FileID = F.FileID) AS nTotalNotes
+		(SELECT COUNT(*) FROM Note N WITH (NOLOCK) WHERE N.FileID = F.FileID) AS nTotalNotes,
+		CASE WHEN S.Name = 'Cancelled' THEN '1.0' ELSE '0.0' END AS oCancelled,
+		CONVERT(DECIMAL(16, 1), ISNULL(DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), CL.DateClosed), 1000)) AS oNumDays
 FROM	FileMain F WITH (NOLOCK)
 		INNER JOIN Status S WITH (NOLOCK) ON S.StatusID = F.StatusID
 		INNER JOIN Property PROP WITH (NOLOCK) ON PROP.PropertyID = F.PrimaryPropertyID

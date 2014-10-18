@@ -98,27 +98,9 @@ namespace MLHCTransactionPredictor
 
             wizard.Wizard(source, true, AnalystFileFormat.DecpntComma);
 
-            // Customize analyst
+            // Set the minimum value for normalization
             foreach (AnalystField field in m_analyst.Script.Normalize.NormalizedFields)
-            {
-                switch (field.Name[0])
-                {
-                    case 's':
-                        field.Action = NormalizationAction.Ignore;
-                        break;
-                    case 'v':
-                        if (field.Action != NormalizationAction.OneOf && field.Action != NormalizationAction.Equilateral)
-                        {
-                            field.Action = NormalizationAction.Equilateral;
-                        }
-                        break;
-                    case 'n':
-                        field.Action = NormalizationAction.Normalize;
-                        break;
-                }
-
-                field.NormalizedLow = 0;
-            }
+                field.NormalizedLow = 0.0;
 
             txtOut.AppendText("Fields found in file:" + Environment.NewLine);
             foreach (AnalystField field in m_analyst.Script.Normalize.NormalizedFields)
@@ -132,12 +114,28 @@ namespace MLHCTransactionPredictor
             var source = new FileInfo(m_fileName);
             var target = new FileInfo(outputFileName);
 
-            norm.Analyze(source, true, CSVFormat.English, m_analyst);
+            norm.Analyze(source, true, CSVFormat.DecimalPoint, m_analyst);
 
             norm.ProduceOutputHeaders = true;
             norm.Normalize(target);
         }
 
+
+        /// <summary>
+        /// Compute the number of input and output nodes
+        /// </summary>
+        private void CountNodes()
+        {
+            m_outputNodes = m_inputNodes = 0;
+
+            for (int i = 0; i < m_data[0].Count; i++)
+                if (m_data[0][i][0] == 'o')
+                    m_outputNodes++;
+                else if (m_data[0][i][0] != 's')
+                    m_inputNodes++;
+        }
+
+        /*
         /// <summary>
         /// Processes CSV file data and normalizes into a matrix floating point numbers
         /// that can be read by the neural network. Column headers in the CSV file
@@ -169,21 +167,9 @@ namespace MLHCTransactionPredictor
             CountNodes();
 
         }
+        */
 
-        /// <summary>
-        /// Compute the number of input and output nodes
-        /// </summary>
-        private void CountNodes()
-        {
-            m_outputNodes = m_inputNodes = 0;
-
-            for (int i = 0; i < m_data[0].Count; i++)
-                if (m_data[0][i][0] == 'o')
-                    m_outputNodes++;
-                else if (m_data[0][i][0] != 's')
-                    m_inputNodes++;
-        }
-
+        /*
         /// <summary>
         /// Splits a column into binary bits to represent each possible identifier. Identifiers
         /// are integers that start counting at 0. Maximum identifier size is 16 bits.
@@ -227,7 +213,9 @@ namespace MLHCTransactionPredictor
 
             return numNewCols;
         }
+        */
 
+        /*
         /// <summary>
         /// Take a value column and for each item renumber starting at 0
         /// </summary>
@@ -253,5 +241,6 @@ namespace MLHCTransactionPredictor
 
             return uniqueIdentifiers.Count;
         }
+        */
     }
 }
