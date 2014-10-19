@@ -18,11 +18,6 @@ namespace MLHCTransactionPredictor
     /// </summary>
     class Predictor
     {
-        public bool ReadyToTrain
-        {
-            get { return !(m_train == null); }
-        }
-
         public Predictor(TextBox txtOutput, CSVData data, int hiddenNodes, double percentValidation)
         {
             m_txtOutputWindow = txtOutput;
@@ -50,6 +45,29 @@ namespace MLHCTransactionPredictor
                 m_txtOutputWindow.AppendText(String.Format("Iteration Number: {0}, Error Rate: {1}{2}",
                     m_train.IterationNumber, m_train.Error, Environment.NewLine));
             } while (m_train.Error > error && m_train.IterationNumber < maxIterations);
+        }
+
+        public void Validate()
+        {
+            // Error array, first dimension is the output node, the second dimension is the validation case
+            double[][] error = new double[m_outputValidation[0].Length][];
+            for (int i = 0; i < error.Length; i++) error[i] = new double[m_inputValidation.Length];
+
+            for(int i = 0; i < m_inputValidation.Length; i++)
+            {
+                BasicMLData result = (BasicMLData)m_network.Compute(new BasicMLData(m_inputValidation[i]));
+                m_txtOutputWindow.AppendText(String.Format("Validation Case {0}{1}", i + 1, Environment.NewLine));
+                for(int j = 0; j < m_outputValidation[i].Length; i++)
+                {
+                    error[j][i] = result.Data[j] - m_outputValidation[i][j];
+                    m_txtOutputWindow.AppendText(String.Format("Output {0}: Expected {1}, Actual {2}, Error {3}{4}",
+                        j + 1, result.Data[j], m_outputValidation[i][j], error[j][i], Environment.NewLine));
+                }
+            }
+
+            m_txtOutputWindow.AppendText(String.Format("{0}Average Errors:{0}", Environment.NewLine));
+            for (int i = 0; i < error.Length; i++)
+                m_txtOutputWindow.AppendText(String.Format("Output {0}: {1}{0}", Environment.NewLine, error[i].Average()));
         }
 
         private void LoadData(double percentValidation)

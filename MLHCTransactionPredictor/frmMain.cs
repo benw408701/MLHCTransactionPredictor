@@ -76,12 +76,13 @@ namespace MLHCTransactionPredictor
             m_predictor = new Predictor(txtMain, m_data, Int32.Parse(txtHiddenNodes.Text),
                 Double.Parse(txtPercentValidation.Text) * .01);
 
-            btnTrain.Enabled = m_predictor.ReadyToTrain;
+            btnTrain.Enabled = true;
         }
 
         private void btnTrain_Click(object sender, EventArgs e)
         {
-            m_predictor.Train(0.01, 500);
+            m_predictor.Train(Double.Parse(txtAllowableError.Text) * .01,
+                Int32.Parse(txtMaxTrainingCycles.Text));
         }
 
         private void btnAnalyze_Click(object sender, EventArgs e)
@@ -105,6 +106,11 @@ namespace MLHCTransactionPredictor
         private void txtPercentValidation_TextChanged(object sender, EventArgs e)
         {
             UpdateTrainingSetSize();
+        }
+
+        private void btnValidate_Click(object sender, EventArgs e)
+        {
+            m_predictor.Validate();
         }
     }
 }

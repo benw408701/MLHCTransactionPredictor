@@ -52,6 +52,11 @@
             this.lblPercSign = new System.Windows.Forms.Label();
             this.txtTrainingSetSize = new System.Windows.Forms.TextBox();
             this.txtValidationSetSize = new System.Windows.Forms.TextBox();
+            this.lblAllowableError = new System.Windows.Forms.Label();
+            this.lblPercSign2 = new System.Windows.Forms.Label();
+            this.txtAllowableError = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtMaxTrainingCycles = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtMain
@@ -106,7 +111,7 @@
             // 
             // txtHiddenNodes
             // 
-            this.txtHiddenNodes.Location = new System.Drawing.Point(375, 6);
+            this.txtHiddenNodes.Location = new System.Drawing.Point(553, 14);
             this.txtHiddenNodes.Name = "txtHiddenNodes";
             this.txtHiddenNodes.Size = new System.Drawing.Size(25, 20);
             this.txtHiddenNodes.TabIndex = 7;
@@ -115,7 +120,7 @@
             // lblHiddenNodes
             // 
             this.lblHiddenNodes.AutoSize = true;
-            this.lblHiddenNodes.Location = new System.Drawing.Point(291, 9);
+            this.lblHiddenNodes.Location = new System.Drawing.Point(469, 17);
             this.lblHiddenNodes.Name = "lblHiddenNodes";
             this.lblHiddenNodes.Size = new System.Drawing.Size(78, 13);
             this.lblHiddenNodes.TabIndex = 8;
@@ -124,7 +129,7 @@
             // lblInputNodes
             // 
             this.lblInputNodes.AutoSize = true;
-            this.lblInputNodes.Location = new System.Drawing.Point(291, 36);
+            this.lblInputNodes.Location = new System.Drawing.Point(469, 46);
             this.lblInputNodes.Name = "lblInputNodes";
             this.lblInputNodes.Size = new System.Drawing.Size(68, 13);
             this.lblInputNodes.TabIndex = 9;
@@ -132,7 +137,7 @@
             // 
             // txtInputNodes
             // 
-            this.txtInputNodes.Location = new System.Drawing.Point(375, 33);
+            this.txtInputNodes.Location = new System.Drawing.Point(553, 43);
             this.txtInputNodes.Name = "txtInputNodes";
             this.txtInputNodes.ReadOnly = true;
             this.txtInputNodes.Size = new System.Drawing.Size(25, 20);
@@ -141,7 +146,7 @@
             // lblOutputNodes
             // 
             this.lblOutputNodes.AutoSize = true;
-            this.lblOutputNodes.Location = new System.Drawing.Point(291, 63);
+            this.lblOutputNodes.Location = new System.Drawing.Point(469, 74);
             this.lblOutputNodes.Name = "lblOutputNodes";
             this.lblOutputNodes.Size = new System.Drawing.Size(76, 13);
             this.lblOutputNodes.TabIndex = 11;
@@ -149,7 +154,7 @@
             // 
             // txtOutputNodes
             // 
-            this.txtOutputNodes.Location = new System.Drawing.Point(375, 60);
+            this.txtOutputNodes.Location = new System.Drawing.Point(553, 71);
             this.txtOutputNodes.Name = "txtOutputNodes";
             this.txtOutputNodes.ReadOnly = true;
             this.txtOutputNodes.Size = new System.Drawing.Size(25, 20);
@@ -191,7 +196,7 @@
             // lblTotalRecords
             // 
             this.lblTotalRecords.AutoSize = true;
-            this.lblTotalRecords.Location = new System.Drawing.Point(439, 41);
+            this.lblTotalRecords.Location = new System.Drawing.Point(593, 46);
             this.lblTotalRecords.Name = "lblTotalRecords";
             this.lblTotalRecords.Size = new System.Drawing.Size(77, 13);
             this.lblTotalRecords.TabIndex = 16;
@@ -199,7 +204,7 @@
             // 
             // txtTotalRecords
             // 
-            this.txtTotalRecords.Location = new System.Drawing.Point(542, 38);
+            this.txtTotalRecords.Location = new System.Drawing.Point(696, 43);
             this.txtTotalRecords.Name = "txtTotalRecords";
             this.txtTotalRecords.ReadOnly = true;
             this.txtTotalRecords.Size = new System.Drawing.Size(74, 20);
@@ -213,11 +218,12 @@
             this.btnValidate.TabIndex = 18;
             this.btnValidate.Text = "Validate";
             this.btnValidate.UseVisualStyleBackColor = true;
+            this.btnValidate.Click += new System.EventHandler(this.btnValidate_Click);
             // 
             // lblPercentValidation
             // 
             this.lblPercentValidation.AutoSize = true;
-            this.lblPercentValidation.Location = new System.Drawing.Point(439, 15);
+            this.lblPercentValidation.Location = new System.Drawing.Point(593, 17);
             this.lblPercentValidation.Name = "lblPercentValidation";
             this.lblPercentValidation.Size = new System.Drawing.Size(96, 13);
             this.lblPercentValidation.TabIndex = 19;
@@ -226,7 +232,7 @@
             // lblTrainingSetSize
             // 
             this.lblTrainingSetSize.AutoSize = true;
-            this.lblTrainingSetSize.Location = new System.Drawing.Point(439, 70);
+            this.lblTrainingSetSize.Location = new System.Drawing.Point(593, 75);
             this.lblTrainingSetSize.Name = "lblTrainingSetSize";
             this.lblTrainingSetSize.Size = new System.Drawing.Size(90, 13);
             this.lblTrainingSetSize.TabIndex = 20;
@@ -235,7 +241,7 @@
             // lblValidationSetSize
             // 
             this.lblValidationSetSize.AutoSize = true;
-            this.lblValidationSetSize.Location = new System.Drawing.Point(439, 97);
+            this.lblValidationSetSize.Location = new System.Drawing.Point(593, 104);
             this.lblValidationSetSize.Name = "lblValidationSetSize";
             this.lblValidationSetSize.Size = new System.Drawing.Size(98, 13);
             this.lblValidationSetSize.TabIndex = 21;
@@ -243,7 +249,7 @@
             // 
             // txtPercentValidation
             // 
-            this.txtPercentValidation.Location = new System.Drawing.Point(542, 12);
+            this.txtPercentValidation.Location = new System.Drawing.Point(696, 14);
             this.txtPercentValidation.Name = "txtPercentValidation";
             this.txtPercentValidation.Size = new System.Drawing.Size(39, 20);
             this.txtPercentValidation.TabIndex = 22;
@@ -253,7 +259,7 @@
             // lblPercSign
             // 
             this.lblPercSign.AutoSize = true;
-            this.lblPercSign.Location = new System.Drawing.Point(587, 15);
+            this.lblPercSign.Location = new System.Drawing.Point(741, 17);
             this.lblPercSign.Name = "lblPercSign";
             this.lblPercSign.Size = new System.Drawing.Size(15, 13);
             this.lblPercSign.TabIndex = 23;
@@ -261,7 +267,7 @@
             // 
             // txtTrainingSetSize
             // 
-            this.txtTrainingSetSize.Location = new System.Drawing.Point(542, 67);
+            this.txtTrainingSetSize.Location = new System.Drawing.Point(696, 72);
             this.txtTrainingSetSize.Name = "txtTrainingSetSize";
             this.txtTrainingSetSize.ReadOnly = true;
             this.txtTrainingSetSize.Size = new System.Drawing.Size(74, 20);
@@ -269,17 +275,65 @@
             // 
             // txtValidationSetSize
             // 
-            this.txtValidationSetSize.Location = new System.Drawing.Point(542, 94);
+            this.txtValidationSetSize.Location = new System.Drawing.Point(696, 101);
             this.txtValidationSetSize.Name = "txtValidationSetSize";
             this.txtValidationSetSize.ReadOnly = true;
             this.txtValidationSetSize.Size = new System.Drawing.Size(74, 20);
             this.txtValidationSetSize.TabIndex = 25;
+            // 
+            // lblAllowableError
+            // 
+            this.lblAllowableError.AutoSize = true;
+            this.lblAllowableError.Location = new System.Drawing.Point(251, 17);
+            this.lblAllowableError.Name = "lblAllowableError";
+            this.lblAllowableError.Size = new System.Drawing.Size(80, 13);
+            this.lblAllowableError.TabIndex = 26;
+            this.lblAllowableError.Text = "Allowable Error:";
+            // 
+            // lblPercSign2
+            // 
+            this.lblPercSign2.AutoSize = true;
+            this.lblPercSign2.Location = new System.Drawing.Point(419, 17);
+            this.lblPercSign2.Name = "lblPercSign2";
+            this.lblPercSign2.Size = new System.Drawing.Size(15, 13);
+            this.lblPercSign2.TabIndex = 27;
+            this.lblPercSign2.Text = "%";
+            // 
+            // txtAllowableError
+            // 
+            this.txtAllowableError.Location = new System.Drawing.Point(374, 14);
+            this.txtAllowableError.Name = "txtAllowableError";
+            this.txtAllowableError.Size = new System.Drawing.Size(39, 20);
+            this.txtAllowableError.TabIndex = 28;
+            this.txtAllowableError.Text = "5";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(251, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(105, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Max Training Cycles:";
+            // 
+            // txtMaxTrainingCycles
+            // 
+            this.txtMaxTrainingCycles.Location = new System.Drawing.Point(374, 43);
+            this.txtMaxTrainingCycles.Name = "txtMaxTrainingCycles";
+            this.txtMaxTrainingCycles.Size = new System.Drawing.Size(60, 20);
+            this.txtMaxTrainingCycles.TabIndex = 30;
+            this.txtMaxTrainingCycles.Text = "500";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 455);
+            this.Controls.Add(this.txtMaxTrainingCycles);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtAllowableError);
+            this.Controls.Add(this.lblPercSign2);
+            this.Controls.Add(this.lblAllowableError);
             this.Controls.Add(this.txtValidationSetSize);
             this.Controls.Add(this.txtTrainingSetSize);
             this.Controls.Add(this.lblPercSign);
@@ -337,6 +391,11 @@
         private System.Windows.Forms.Label lblPercSign;
         private System.Windows.Forms.TextBox txtTrainingSetSize;
         private System.Windows.Forms.TextBox txtValidationSetSize;
+        private System.Windows.Forms.Label lblAllowableError;
+        private System.Windows.Forms.Label lblPercSign2;
+        private System.Windows.Forms.TextBox txtAllowableError;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtMaxTrainingCycles;
     }
 }
 
