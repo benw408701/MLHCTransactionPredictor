@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,6 +26,24 @@ namespace MLHCTransactionPredictor
         private int m_outputNodes;
         private EncogAnalyst m_analyst;
         private string m_fileName;
+
+        /// <summary>
+        /// Returns the encog analyst fields for the output nodes
+        /// </summary>
+        public List<AnalystField> AnalystOutputFields
+        {
+            get
+            {
+                List<AnalystField> outputFieldList = new List<AnalystField>();
+
+                if (m_analyst != null)
+                    foreach (AnalystField field in m_analyst.Script.Normalize.NormalizedFields)
+                        if (field.Name[0] == 'o')
+                            outputFieldList.Add(field);
+
+                return outputFieldList;
+            }
+        }
 
         /// <summary>
         /// Total number of rows
@@ -80,13 +99,26 @@ namespace MLHCTransactionPredictor
 
             // Read each row into memory
             while (!reader.EndOfStream)
-                m_data.Add(reader.ReadLine().Split(',').ToList());
+            {
+                String line = reader.ReadLine();
+                // Remove double quotes
+                line = Regex.Replace(line, "\"", "");
+                m_data.Add(line.Split(',').ToList());
+            }
             reader.Close();
 
             // Count the number of input and output nodes
             CountNodes();
 
             m_fileName = fileName;
+
+            // Check to see if there is an analyst file
+            FileInfo analyst = new FileInfo(String.Format("{0}.ega", fileName.Split('.')[0]));
+            if (analyst.Exists)
+            {
+                m_analyst = new EncogAnalyst();
+                m_analyst.Load(analyst);
+            }
         }
 
         public void Analyze(TextBox txtOut)
@@ -114,10 +146,13 @@ namespace MLHCTransactionPredictor
             var source = new FileInfo(m_fileName);
             var target = new FileInfo(outputFileName);
 
-            norm.Analyze(source, true, CSVFormat.DecimalPoint, m_analyst);
+            norm.Analyze(source, true, CSVFormat.English, m_analyst);
 
             norm.ProduceOutputHeaders = true;
             norm.Normalize(target);
+
+            m_analyst.Save(String.Format("{0}.ega",
+                outputFileName.Split('.')[0]));
         }
 
 

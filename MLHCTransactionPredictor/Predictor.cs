@@ -1,4 +1,6 @@
-﻿using Encog.Engine.Network.Activation;
+﻿using Encog.App.Analyst;
+using Encog.App.Analyst.Script.Normalize;
+using Encog.Engine.Network.Activation;
 using Encog.ML.Data.Basic;
 using Encog.Neural.Networks;
 using Encog.Neural.Networks.Layers;
@@ -53,15 +55,18 @@ namespace MLHCTransactionPredictor
             double[][] error = new double[m_outputValidation[0].Length][];
             for (int i = 0; i < error.Length; i++) error[i] = new double[m_inputValidation.Length];
 
+            List<AnalystField> outputFields = m_data.AnalystOutputFields;
+            
             for(int i = 0; i < m_inputValidation.Length; i++)
             {
                 BasicMLData result = (BasicMLData)m_network.Compute(new BasicMLData(m_inputValidation[i]));
                 m_txtOutputWindow.AppendText(String.Format("Validation Case {0}{1}", i + 1, Environment.NewLine));
-                for(int j = 0; j < m_outputValidation[i].Length; i++)
+                for(int j = 0; j < m_outputValidation[i].Length; j++)
                 {
                     error[j][i] = result.Data[j] - m_outputValidation[i][j];
                     m_txtOutputWindow.AppendText(String.Format("Output {0}: Expected {1}, Actual {2}, Error {3}{4}",
-                        j + 1, result.Data[j], m_outputValidation[i][j], error[j][i], Environment.NewLine));
+                        j + 1, outputFields[j].DeNormalize(result.Data[j]),
+                        outputFields[j].DeNormalize(m_outputValidation[i][j]), error[j][i], Environment.NewLine));
                 }
             }
 
