@@ -33,6 +33,7 @@ namespace MLHCTransactionPredictor
             txtTotalRecords.Text = (m_data.Rows - 1).ToString();
             UpdateTrainingSetSize();
 
+            btnOpen.Enabled = false;
             btnCreateNeuralNet.Enabled = true;
             btnAnalyze.Enabled = true;
         }
@@ -48,6 +49,10 @@ namespace MLHCTransactionPredictor
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtMain.Clear();
+            btnAnalyze.Enabled = btnCreateNeuralNet.Enabled = btnOutputNormalized.Enabled = btnTrain.Enabled = false;
+            btnOpen.Enabled = true;
+            m_data = null;
+            m_predictor = null;
         }
 
         /// <summary>
