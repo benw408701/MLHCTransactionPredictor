@@ -1,0 +1,139 @@
+﻿Export: Original Export, all original fields
+	Inputs: File Number (skip)
+			Office (value)
+			Coverage Type (value)
+			State (value)
+			Product (value)
+			Transaction (value)
+			Loan Amount (number)
+			Lien Amounts (number)
+			Equity (number)
+			Liens (number)
+			Actions (number)
+			Audit Entries (number)
+			Total Exceptions (number)
+			Total Notes
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Poor, predictions are all about the same
+
+Export 2: Remove lien amounts and equity, remove cancellation output
+	Inputs: File Number (skip)
+			Office (value)
+			Coverage Type (value)
+			State (value)
+			Product (value)
+			Transaction (value)
+			Loan Amount (number)
+			Liens (number)
+			Actions (number)
+			Audit Entries (number)
+			Total Exceptions (number)
+			Total Notes
+	Outputs: Num Days to Close (number)
+	Results: Poor, predictions are all about the same
+
+Export 3: Remove office, state, transaction
+	Inputs: File Number (skip)
+			Coverage Type (value)
+			Product (value)
+			Loan Amount (number)
+			Lien Amounts (number)
+			Equity (number)
+			Liens (number)
+			Actions (number)
+			Audit Entries (number)
+			Total Exceptions (number)
+			Total Notes
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Poor, output varies slightly but not much of an improvement
+
+Export 4: Take export 3 and also remove lien amounts and equity
+	Inputs: File Number (skip)
+			Coverage Type (value)
+			Product (value)
+			Loan Amount (number)
+			Liens (number)
+			Actions (number)
+			Audit Entries (number)
+			Total Exceptions (number)
+			Total Notes
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Poor, output varies slightly but not much of an improvement
+
+Export 5: Take export 4 and also remove loan amount
+	Inputs: File Number (skip)
+			Coverage Type (value)
+			Product (value)
+			Liens (number)
+			Actions (number)
+			Audit Entries (number)
+			Total Exceptions (number)
+			Total Notes
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Poor, output varies slightly but not much of an improvement
+
+Export 6: Take export 5 and also remove exceptions and actions
+	Inputs: File Number (skip)
+			Coverage Type (value)
+			Product (value)
+			Liens (number)
+			Audit Entries (number)
+			Total Notes
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Poor, output varies slightly but not much of an improvement
+
+Export 7: Take export 6 and also remove coverage type and product
+	Inputs: File Number (skip)
+			Liens (number)
+			Audit Entries (number)
+			Total Notes
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Better, can train down to 6.6% error after 6,000 training cycles, better than reached before.
+			 The error rate on the cancellations appears to be much better than on the closed files.
+
+------------------------------------------------------------------------------------
+Future trials will involve averaging the number of notes and audit entries into a daily
+average rather than using the total number.
+
+Export 8: Original Export, average notes and audit entries daily
+	Inputs: File Number (skip)
+			Office (value)
+			Coverage Type (value)
+			State (value)
+			Product (value)
+			Transaction (value)
+			Loan Amount (number)
+			Lien Amounts (number)
+			Equity (number)
+			Liens (number)
+			Actions (number)
+			Audit Entries per Day (number)
+			Total Exceptions (number)
+			Total Notes per Day (number)
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Poor
+
+Export 9: Take export 8 and remove office, state, product, lien amounts, equity, exceptions
+	Inputs: File Number (skip)
+			Coverage Type (value)
+			Transaction (value)
+			Loan Amount (number)
+			Liens (number)
+			Actions (number)
+			Audit Entries per Day (number)
+			Total Notes per Day (number)
+	Outputs: Cancelled (number)
+			 Num Days to Close (number)
+	Results: Reached 5% error after 3,268 training cycles. 3.85% after 6,000 cycles
+			 Tried again with 5 hidden nodes (normally 3) and reached 3.9% after 6,000 cycles.
+			 Tried again with 4 hidden nodes and had the same results.
+			 1 hidden node: 4% after 6,000 cycles
+			 2 hidden nodes: 3.89% after 6,000 cycles
+			 Ran 50,000 cycles and reached 3.13% error. Validation set had 3.51% error

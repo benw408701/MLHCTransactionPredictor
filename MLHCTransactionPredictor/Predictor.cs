@@ -41,12 +41,37 @@ namespace MLHCTransactionPredictor
 
         public void Train(double error, int maxIterations = 1000)
         {
+            // Validation data and stats
+            BasicMLDataSet validationSet = new BasicMLDataSet(m_inputValidation, m_outputValidation);
+            List<double> validationHistory = new List<double>();
+            bool validationErrorDecreasing = true;
+            int validationHistorySize = 15;
+
+            // Training Loop
             do
             {
                 m_train.Iteration();
-                m_txtOutputWindow.AppendText(String.Format("Iteration Number: {0}, Error Rate: {1}{2}",
-                    m_train.IterationNumber, m_train.Error, Environment.NewLine));
-            } while (m_train.Error > error && m_train.IterationNumber < maxIterations);
+                double trainingError = m_train.Error;
+                double validationError = m_network.CalculateError(validationSet);
+                m_txtOutputWindow.AppendText(String.Format(
+                    "Iteration Number: {0}, Training Error: {1}, Validation Error: {2}{3}",
+                    m_train.IterationNumber, trainingError, validationError, Environment.NewLine));
+
+                // Update validation error stats
+                if (validationHistory.Count < validationHistorySize)
+                    validationHistory.Add(validationError);
+                else
+                {
+                    validationErrorDecreasing = validationError < validationHistory.Average()
+                        || m_train.IterationNumber < 500;
+                    validationHistory.RemoveAt(0);
+                    validationHistory.Add(validationError);
+                }
+            } while (m_train.Error > error && m_train.IterationNumber < maxIterations && validationErrorDecreasing);
+
+            if (!validationErrorDecreasing)
+                m_txtOutputWindow.AppendText(String.Format("Early termination, average validation error of last {0} cycles is {1}{2}",
+                    validationHistorySize, validationHistory.Average(), Environment.NewLine));
         }
 
         public void Validate()

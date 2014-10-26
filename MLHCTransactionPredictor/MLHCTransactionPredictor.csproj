@@ -67,6 +67,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Data\Export.csv" />
+    <None Include="Data\Export2.csv" />
+    <None Include="Data\Export3.csv" />
+    <None Include="Data\Export4.csv" />
+    <None Include="Data\Export5.csv" />
+    <None Include="Data\Export6.csv" />
+    <None Include="Data\Export7.csv" />
+    <None Include="Data\Export8.csv" />
+    <None Include="Data\Export9.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -88,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\DataSelect.sql" />
+    <Content Include="Data\ExportFiles.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
