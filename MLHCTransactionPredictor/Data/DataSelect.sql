@@ -11,7 +11,7 @@ SELECT	F.FileNumber AS sFileNumber, F.OfficeID AS vOffice, PC.PartnerCompanyID A
 		(SELECT COUNT(*) FROM Lien L WITH (NOLOCK) WHERE L.FileID = F.FileID) AS nTotalExceptions,
 		(SELECT COUNT(*) FROM Note N WITH (NOLOCK) WHERE N.FileID = F.FileID) AS nTotalNotes,
 		CASE WHEN S.Name = 'Cancelled' THEN '1.0' ELSE '0.0' END AS oCancelled,
-		CONVERT(DECIMAL(16, 1), ISNULL(DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), CL.DateClosed), 1000)) AS oNumDays
+		CONVERT(DECIMAL(16, 1), ISNULL(DATEDIFF(DAY, dbo.fn_GetLocalDateTimeFunc(F.OpenedDate, 4), CL.DateClosed), 45)) AS oNumDays
 FROM	FileMain F WITH (NOLOCK)
 		INNER JOIN Status S WITH (NOLOCK) ON S.StatusID = F.StatusID
 		INNER JOIN Property PROP WITH (NOLOCK) ON PROP.PropertyID = F.PrimaryPropertyID

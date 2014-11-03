@@ -137,3 +137,4 @@ Export 9: Take export 8 and remove office, state, product, lien amounts, equity,
 			 1 hidden node: 4% after 6,000 cycles
 			 2 hidden nodes: 3.89% after 6,000 cycles
 			 Ran 50,000 cycles and reached 3.13% error. Validation set had 3.51% error
+			 Ran 100,000 cycles and saved train1.eg

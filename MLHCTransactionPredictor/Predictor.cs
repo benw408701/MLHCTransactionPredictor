@@ -5,8 +5,10 @@ using Encog.ML.Data.Basic;
 using Encog.Neural.Networks;
 using Encog.Neural.Networks.Layers;
 using Encog.Neural.Networks.Training.Propagation.Back;
+using Encog.Persist;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,13 @@ namespace MLHCTransactionPredictor
     /// </summary>
     class Predictor
     {
+        public int HiddenNodes
+        {
+            get
+            {
+                return m_network.GetLayerNeuronCount(1);
+            }
+        }
         public Predictor(TextBox txtOutput, CSVData data, int hiddenNodes, double percentValidation)
         {
             m_txtOutputWindow = txtOutput;
@@ -37,6 +46,16 @@ namespace MLHCTransactionPredictor
             m_network.Reset();
 
             m_train = new Backpropagation(m_network, new BasicMLDataSet(m_inputTraining, m_outputTraining));
+        }
+
+        public Predictor(String fileName, TextBox txtOutput, CSVData data, double percentValidation)
+        {
+            m_network = (BasicNetwork)EncogDirectoryPersistence.LoadObject(new FileInfo(fileName));
+            m_txtOutputWindow = txtOutput;
+            m_data = data;
+
+            // Populate the input and output arrays
+            LoadData(percentValidation);
         }
 
         public void Train(double error, int maxIterations = 1000)
@@ -97,7 +116,12 @@ namespace MLHCTransactionPredictor
 
             m_txtOutputWindow.AppendText(String.Format("{0}Average Errors:{0}", Environment.NewLine));
             for (int i = 0; i < error.Length; i++)
-                m_txtOutputWindow.AppendText(String.Format("Output {0}: {1}{0}", Environment.NewLine, error[i].Average()));
+                m_txtOutputWindow.AppendText(String.Format("Output {0}: {1}{2}", i + 1, error[i].Average(), Environment.NewLine));
+        }
+
+        public void SaveNetwork(string fileName)
+        {
+            EncogDirectoryPersistence.SaveObject(new FileInfo(fileName), m_network);
         }
 
         private void LoadData(double percentValidation)

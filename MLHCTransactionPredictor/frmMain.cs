@@ -36,6 +36,7 @@ namespace MLHCTransactionPredictor
             btnOpen.Enabled = false;
             btnCreateNeuralNet.Enabled = true;
             btnAnalyze.Enabled = true;
+            btnLoadNetwork.Enabled = true;
         }
 
         private void UpdateTrainingSetSize()
@@ -49,7 +50,8 @@ namespace MLHCTransactionPredictor
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtMain.Clear();
-            btnAnalyze.Enabled = btnCreateNeuralNet.Enabled = btnOutputNormalized.Enabled = btnTrain.Enabled = false;
+            btnAnalyze.Enabled = btnCreateNeuralNet.Enabled = btnOutputNormalized.Enabled = btnTrain.Enabled = 
+                btnSaveNetwork.Enabled = btnLoadNetwork.Enabled = false;
             btnOpen.Enabled = true;
             m_data = null;
             m_predictor = null;
@@ -82,6 +84,7 @@ namespace MLHCTransactionPredictor
                 Double.Parse(txtPercentValidation.Text) * .01);
 
             btnTrain.Enabled = true;
+            btnSaveNetwork.Enabled = true;
         }
 
         private void btnTrain_Click(object sender, EventArgs e)
@@ -116,6 +119,29 @@ namespace MLHCTransactionPredictor
         private void btnValidate_Click(object sender, EventArgs e)
         {
             m_predictor.Validate();
+        }
+
+        private void btnSaveNetwork_Click(object sender, EventArgs e)
+        {
+            var save = new SaveFileDialog();
+
+            save.DefaultExt = ".eg";
+
+            save.ShowDialog();
+
+            m_predictor.SaveNetwork(save.FileName);
+        }
+
+        private void btnLoadNetwork_Click(object sender, EventArgs e)
+        {
+            var open = new OpenFileDialog();
+
+            open.ShowDialog();
+
+            if (open.FileName != "")
+                m_predictor = new Predictor(open.FileName, txtMain, m_data, Double.Parse(txtPercentValidation.Text) * .01);
+
+            txtHiddenNodes.Text = m_predictor.HiddenNodes.ToString();
         }
     }
 }
