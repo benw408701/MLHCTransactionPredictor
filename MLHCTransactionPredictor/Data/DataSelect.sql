@@ -1,4 +1,4 @@
-SELECT	F.FileNumber AS sFileNumber, F.OfficeID AS vOffice, PC.PartnerCompanyID AS vCoverageType, PROP.State AS vState,
+SELECT	F.FileNumber AS sFileNumber, F.OfficeID AS vOffice, PC.Name AS vCoverageType, PROP.State AS vState,
 		CASE WHEN PATINDEX('%(%', PROD.DisplayName) > 0
 		THEN SUBSTRING(PROD.DisplayName, 0, PATINDEX('%(%', PROD.DisplayName) - 1)
 		ELSE PROD.DisplayName

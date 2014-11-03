@@ -142,6 +142,8 @@ namespace MLHCTransactionPredictor
                 m_predictor = new Predictor(open.FileName, txtMain, m_data, Double.Parse(txtPercentValidation.Text) * .01);
 
             txtHiddenNodes.Text = m_predictor.HiddenNodes.ToString();
+
+            btnTrain.Enabled = true;
         }
     }
 }

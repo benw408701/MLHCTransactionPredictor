@@ -56,6 +56,8 @@ namespace MLHCTransactionPredictor
 
             // Populate the input and output arrays
             LoadData(percentValidation);
+
+            m_train = new Backpropagation(m_network, new BasicMLDataSet(m_inputTraining, m_outputTraining));
         }
 
         public void Train(double error, int maxIterations = 1000)
@@ -64,7 +66,7 @@ namespace MLHCTransactionPredictor
             BasicMLDataSet validationSet = new BasicMLDataSet(m_inputValidation, m_outputValidation);
             List<double> validationHistory = new List<double>();
             bool validationErrorDecreasing = true;
-            int validationHistorySize = 15;
+            int validationHistorySize = 100;
 
             // Training Loop
             do

@@ -10,3 +10,4 @@ C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPre
 C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\bin\Debug\encog-core-cs.xml
 C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.exe
 C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.pdb
+C:\Users\Ben\Documents\School\CSC219\MLHCTransactionPredictor\MLHCTransactionPredictor\obj\Debug\MLHCTransactionPredictor.frmTest.resources
