@@ -1,0 +1,223 @@
+[HEADER]
+[HEADER:DATASOURCE]
+rawFile=FILE_RAW
+sourceFile=
+sourceFormat=
+sourceHeaders=t
+[SETUP]
+[SETUP:CONFIG]
+allowedClasses=integer,string
+csvFormat=decpnt|comma
+inputHeaders=t
+maxClassCount=50
+[SETUP:FILENAMES]
+FILE_RAW=Export8.csv
+FILE_NORMALIZE=Export8_norm.csv
+FILE_RANDOMIZE=Export8_random.csv
+FILE_CLUSTER=Export8_cluster.csv
+FILE_TRAIN=Export8_train.csv
+FILE_EVAL=Export8_eval.csv
+FILE_EVAL_NORM=Export8_eval_norm.csv
+FILE_TRAINSET=Export8_train.egb
+FILE_ML=Export8_train.eg
+FILE_OUTPUT=Export8_output.csv
+[DATA]
+[DATA:CONFIG]
+goal=classification
+[DATA:STATS]
+"name","isclass","iscomplete","isint","isreal","amax","amin","mean","sdev","source"
+"sFileNumber",0,1,0,0,0.0001,-0.0001,0,0,""
+"vOffice",1,1,1,1,2,1,1.6792346254,0.4667707671,""
+"vCoverageType",1,1,1,1,29189,3860,4015.7314834428,1967.5867472572,""
+"vState",1,1,0,0,0.0001,-0.0001,0,0,""
+"vProduct",1,1,0,0,0.0001,-0.0001,0,0,""
+"vTransaction",1,1,0,0,0.0001,-0.0001,0,0,""
+"nLoanAmount",0,1,0,1,6255000,0,173331.992441573,188919.149439723,""
+"nLienAmounts",0,1,0,1,50000000,0,217615.852854621,562312.594524466,""
+"nEquity",0,1,0,1,6125000,-49930468.2,-44283.8604130481,563545.793167416,""
+"nLiens",0,1,0,1,20,0,1.1519452093,1.0676150391,""
+"nActions",0,1,0,1,264,10,54.8368989621,21.5973324073,""
+"nAuditEntries",0,1,0,1,470.5,1.5707070707,21.4488141295,15.1845483163,""
+"nTotalExceptions",0,1,0,1,47,0,14.6386358822,8.3503753093,""
+"nTotalNotes",0,1,0,1,24.5,0,0.5492746601,0.5190431972,""
+"oCancelled",0,1,0,1,1,0,0.2119607428,0.4086971817,""
+"oNumDays",0,1,0,1,231,2,49.0720892466,27.9384080104,""
+[DATA:CLASSES]
+"field","code","name"
+"vOffice","1","1",4543
+"vOffice","2","2",9620
+"vCoverageType","29189","29189",86
+"vCoverageType","3860","3860",4776
+"vCoverageType","3862","3862",572
+"vCoverageType","3863","3863",8729
+"vState","AL","AL",239
+"vState","AZ","AZ",341
+"vState","CA","CA",7949
+"vState","CO","CO",365
+"vState","CT","CT",2
+"vState","DC","DC",15
+"vState","DE","DE",25
+"vState","FL","FL",720
+"vState","GA","GA",159
+"vState","IA","IA",49
+"vState","ID","ID",45
+"vState","IL","IL",173
+"vState","IN","IN",97
+"vState","KS","KS",48
+"vState","KY","KY",44
+"vState","LA","LA",82
+"vState","MA","MA",64
+"vState","MD","MD",85
+"vState","ME","ME",69
+"vState","MI","MI",110
+"vState","MN","MN",49
+"vState","MO","MO",96
+"vState","MS","MS",59
+"vState","NC","NC",174
+"vState","ND","ND",3
+"vState","NE","NE",20
+"vState","NH","NH",32
+"vState","NJ","NJ",113
+"vState","NV","NV",312
+"vState","NY","NY",61
+"vState","OH","OH",142
+"vState","OR","OR",614
+"vState","PA","PA",153
+"vState","RI","RI",12
+"vState","SC","SC",91
+"vState","TN","TN",130
+"vState","TX","TX",246
+"vState","UT","UT",480
+"vState","VA","VA",154
+"vState","VT","VT",31
+"vState","WA","WA",369
+"vState","WI","WI",111
+"vState","WV","WV",30
+"vProduct","City of Sacramento Prelim","City of Sacramento Prelim",14
+"vProduct","Escrow Only","Escrow Only",2
+"vProduct","Examiner's Report","Examiner's Report",2
+"vProduct","HECM for Purchase","HECM for Purchase",2
+"vProduct","LCP - Title Only","LCP - Title Only",1738
+"vProduct","LCP & Full Escrow","LCP & Full Escrow",22
+"vProduct","LCP & Sub-Escrow","LCP & Sub-Escrow",295
+"vProduct","Legal & Vesting - Title Only","Legal & Vesting - Title Only",28
+"vProduct","Property Report / O&E - Title Only","Property Report / O&E - Title Only",1907
+"vProduct","Property Report / O&E & Full Escrow","Property Report / O&E & Full Escrow",169
+"vProduct","Purchase with Conventional Loan","Purchase with Conventional Loan",1
+"vProduct","Reverse Mortgage - Title & Full Escrow","Reverse Mortgage - Title & Full Escrow",33
+"vProduct","Reverse Mortgage - Title & Sub-Escrow","Reverse Mortgage - Title & Sub-Escrow",32
+"vProduct","Reverse Mortgage - Title Only","Reverse Mortgage - Title Only",56
+"vProduct","Search Only","Search Only",1
+"vProduct","Stand Alone Modification","Stand Alone Modification",7
+"vProduct","Title & Full Escrow","Title & Full Escrow",1617
+"vProduct","Title & Sub Escrow","Title & Sub Escrow",11
+"vProduct","Title & Sub-Escrow","Title & Sub-Escrow",1286
+"vProduct","Title and Escrow","Title and Escrow",4415
+"vProduct","Title Only","Title Only",2210
+"vProduct","Title Only & Sub Escrow","Title Only & Sub Escrow",6
+"vProduct","TSG - Trustee Sale Guarantee","TSG - Trustee Sale Guarantee",309
+"vTransaction","Conventional - Refinance","Conventional - Refinance",24
+"vTransaction","PRC Purchase","PRC Purchase",3
+"vTransaction","Refinance","Refinance",7191
+"vTransaction","Reverse Mortgage","Reverse Mortgage",4515
+"vTransaction","TSG","TSG",309
+"vTransaction","Uninsured (Info Products)","Uninsured (Info Products)",2121
+[NORMALIZE]
+[NORMALIZE:CONFIG]
+missingValues=DiscardMissing
+sourceFile=FILE_TRAIN
+targetFile=FILE_NORMALIZE
+[NORMALIZE:RANGE]
+"name","io","timeSlice","action","high","low"
+"sFileNumber","input",0,"ignore",0,0
+"vOffice","input",0,"oneof",1,0
+"vCoverageType","input",0,"equilateral",1,0
+"vState","input",0,"equilateral",1,0
+"vProduct","input",0,"equilateral",1,0
+"vTransaction","output",0,"equilateral",1,0
+"nLoanAmount","input",0,"range",1,0
+"nLienAmounts","input",0,"range",1,0
+"nEquity","input",0,"range",1,0
+"nLiens","input",0,"range",1,0
+"nActions","input",0,"range",1,0
+"nAuditEntries","input",0,"range",1,0
+"nTotalExceptions","input",0,"range",1,0
+"nTotalNotes","input",0,"range",1,0
+"oCancelled","input",0,"range",1,0
+"oNumDays","input",0,"range",1,0
+[RANDOMIZE]
+[RANDOMIZE:CONFIG]
+sourceFile=FILE_RAW
+targetFile=FILE_RANDOMIZE
+[CLUSTER]
+[CLUSTER:CONFIG]
+clusters=6
+sourceFile=FILE_EVAL
+targetFile=FILE_CLUSTER
+type=kmeans
+[BALANCE]
+[BALANCE:CONFIG]
+balanceField=
+countPer=
+sourceFile=
+targetFile=
+[CODE]
+[CODE:CONFIG]
+embedData=
+targetFile=
+targetLanguage=
+[SEGREGATE]
+[SEGREGATE:CONFIG]
+sourceFile=FILE_RANDOMIZE
+[SEGREGATE:FILES]
+"file","percent"
+"FILE_TRAIN",75
+"FILE_EVAL",25
+[GENERATE]
+[GENERATE:CONFIG]
+sourceFile=FILE_NORMALIZE
+targetFile=FILE_TRAINSET
+[ML]
+[ML:CONFIG]
+architecture=?:B->TANH->118:B->TANH->?
+evalFile=FILE_EVAL
+machineLearningFile=FILE_ML
+outputFile=FILE_OUTPUT
+query=
+trainingFile=FILE_TRAINSET
+type=feedforward
+[ML:TRAIN]
+arguments=
+cross=
+targetError=0.05
+type=rprop
+[TASKS]
+[TASKS:task-cluster]
+cluster
+[TASKS:task-code]
+code
+[TASKS:task-create]
+create
+[TASKS:task-evaluate]
+evaluate
+[TASKS:task-evaluate-raw]
+set ML.CONFIG.evalFile="FILE_EVAL_NORM"
+set NORMALIZE.CONFIG.sourceFile="FILE_EVAL"
+set NORMALIZE.CONFIG.targetFile="FILE_EVAL_NORM"
+normalize
+evaluate-raw
+[TASKS:task-full]
+randomize
+segregate
+normalize
+generate
+create
+train
+evaluate
+[TASKS:task-generate]
+randomize
+segregate
+normalize
+generate
+[TASKS:task-train]
+train

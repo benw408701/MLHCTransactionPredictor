@@ -1,0 +1,162 @@
+[HEADER]
+[HEADER:DATASOURCE]
+rawFile=FILE_RAW
+sourceFile=
+sourceFormat=
+sourceHeaders=t
+[SETUP]
+[SETUP:CONFIG]
+allowedClasses=integer,string
+csvFormat=decpnt|comma
+inputHeaders=t
+maxClassCount=50
+[SETUP:FILENAMES]
+FILE_RAW=Export4.csv
+FILE_NORMALIZE=Export4_norm.csv
+FILE_RANDOMIZE=Export4_random.csv
+FILE_CLUSTER=Export4_cluster.csv
+FILE_TRAIN=Export4_train.csv
+FILE_EVAL=Export4_eval.csv
+FILE_EVAL_NORM=Export4_eval_norm.csv
+FILE_TRAINSET=Export4_train.egb
+FILE_ML=Export4_train.eg
+FILE_OUTPUT=Export4_output.csv
+[DATA]
+[DATA:CONFIG]
+goal=classification
+[DATA:STATS]
+"name","isclass","iscomplete","isint","isreal","amax","amin","mean","sdev","source"
+"sFileNumber",0,1,0,0,0.0001,-0.0001,0,0,""
+"vCoverageType",1,1,1,1,29189,3860,4012.5838002352,1947.5999457391,""
+"vProduct",1,1,0,0,0.0001,-0.0001,0,0,""
+"nLoanAmount",0,1,0,1,6255000,0,174996.477222799,190082.714432416,""
+"nLiens",0,1,0,1,20,0,1.1907034654,1.1465015022,""
+"nActions",0,1,0,1,264,10,54.0511862765,22.077915004,""
+"nAuditEntries",0,1,0,1,3344,151,832.2530262157,401.8242537314,""
+"nTotalExceptions",0,1,0,1,47,0,14.6116760047,8.2963123817,""
+"nTotalNotes",0,1,0,1,129,0,21.3998754928,16.1132236694,""
+"oCancelled",0,1,0,1,1,0,0.2076502732,0.4056249958,""
+"oNumDays",0,1,0,1,231,0,48.0741509303,28.5071252149,""
+[DATA:CLASSES]
+"field","code","name"
+"vCoverageType","29189","29189",86
+"vCoverageType","3860","3860",4977
+"vCoverageType","3862","3862",572
+"vCoverageType","3863","3863",8822
+"vProduct","City of Sacramento Prelim","City of Sacramento Prelim",14
+"vProduct","Escrow Only","Escrow Only",2
+"vProduct","Examiner's Report","Examiner's Report",2
+"vProduct","HECM for Purchase","HECM for Purchase",2
+"vProduct","LCP - Title Only","LCP - Title Only",1738
+"vProduct","LCP & Full Escrow","LCP & Full Escrow",22
+"vProduct","LCP & Sub-Escrow","LCP & Sub-Escrow",295
+"vProduct","Legal & Vesting - Title Only","Legal & Vesting - Title Only",28
+"vProduct","Property Report / O&E - Title Only","Property Report / O&E - Title Only",1907
+"vProduct","Property Report / O&E & Full Escrow","Property Report / O&E & Full Escrow",169
+"vProduct","Purchase with Conventional Loan","Purchase with Conventional Loan",1
+"vProduct","Reverse Mortgage - Title & Full Escrow","Reverse Mortgage - Title & Full Escrow",33
+"vProduct","Reverse Mortgage - Title & Sub-Escrow","Reverse Mortgage - Title & Sub-Escrow",32
+"vProduct","Reverse Mortgage - Title Only","Reverse Mortgage - Title Only",56
+"vProduct","Search Only","Search Only",1
+"vProduct","Stand Alone Modification","Stand Alone Modification",7
+"vProduct","Title & Full Escrow","Title & Full Escrow",1618
+"vProduct","Title & Sub Escrow","Title & Sub Escrow",11
+"vProduct","Title & Sub-Escrow","Title & Sub-Escrow",1286
+"vProduct","Title and Escrow","Title and Escrow",4417
+"vProduct","Title Only","Title Only",2210
+"vProduct","Title Only & Sub Escrow","Title Only & Sub Escrow",6
+"vProduct","TSG - Trustee Sale Guarantee","TSG - Trustee Sale Guarantee",600
+[NORMALIZE]
+[NORMALIZE:CONFIG]
+missingValues=DiscardMissing
+sourceFile=FILE_TRAIN
+targetFile=FILE_NORMALIZE
+[NORMALIZE:RANGE]
+"name","io","timeSlice","action","high","low"
+"sFileNumber","input",0,"ignore",0,0
+"vCoverageType","input",0,"equilateral",1,0
+"vProduct","output",0,"equilateral",1,0
+"nLoanAmount","input",0,"range",1,0
+"nLiens","input",0,"range",1,0
+"nActions","input",0,"range",1,0
+"nAuditEntries","input",0,"range",1,0
+"nTotalExceptions","input",0,"range",1,0
+"nTotalNotes","input",0,"range",1,0
+"oCancelled","input",0,"range",1,0
+"oNumDays","input",0,"range",1,0
+[RANDOMIZE]
+[RANDOMIZE:CONFIG]
+sourceFile=FILE_RAW
+targetFile=FILE_RANDOMIZE
+[CLUSTER]
+[CLUSTER:CONFIG]
+clusters=23
+sourceFile=FILE_EVAL
+targetFile=FILE_CLUSTER
+type=kmeans
+[BALANCE]
+[BALANCE:CONFIG]
+balanceField=
+countPer=
+sourceFile=
+targetFile=
+[CODE]
+[CODE:CONFIG]
+embedData=
+targetFile=
+targetLanguage=
+[SEGREGATE]
+[SEGREGATE:CONFIG]
+sourceFile=FILE_RANDOMIZE
+[SEGREGATE:FILES]
+"file","percent"
+"FILE_TRAIN",75
+"FILE_EVAL",25
+[GENERATE]
+[GENERATE:CONFIG]
+sourceFile=FILE_NORMALIZE
+targetFile=FILE_TRAINSET
+[ML]
+[ML:CONFIG]
+architecture=?:B->TANH->16:B->TANH->?
+evalFile=FILE_EVAL
+machineLearningFile=FILE_ML
+outputFile=FILE_OUTPUT
+query=
+trainingFile=FILE_TRAINSET
+type=feedforward
+[ML:TRAIN]
+arguments=
+cross=
+targetError=0.05
+type=rprop
+[TASKS]
+[TASKS:task-cluster]
+cluster
+[TASKS:task-code]
+code
+[TASKS:task-create]
+create
+[TASKS:task-evaluate]
+evaluate
+[TASKS:task-evaluate-raw]
+set ML.CONFIG.evalFile="FILE_EVAL_NORM"
+set NORMALIZE.CONFIG.sourceFile="FILE_EVAL"
+set NORMALIZE.CONFIG.targetFile="FILE_EVAL_NORM"
+normalize
+evaluate-raw
+[TASKS:task-full]
+randomize
+segregate
+normalize
+generate
+create
+train
+evaluate
+[TASKS:task-generate]
+randomize
+segregate
+normalize
+generate
+[TASKS:task-train]
+train
