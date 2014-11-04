@@ -45,6 +45,21 @@ namespace MLHCTransactionPredictor
             }
         }
 
+        public List<AnalystField> AnalystInputFields
+        {
+            get
+            {
+                List<AnalystField> inputFieldList = new List<AnalystField>();
+
+                if (m_analyst != null)
+                    foreach (AnalystField field in m_analyst.Script.Normalize.NormalizedFields)
+                        if (field.Name[0] != 'o')
+                            inputFieldList.Add(field);
+
+                return inputFieldList;
+            }
+        }
+
         /// <summary>
         /// Total number of rows
         /// </summary>

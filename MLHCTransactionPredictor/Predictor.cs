@@ -29,6 +29,15 @@ namespace MLHCTransactionPredictor
                 return m_network.GetLayerNeuronCount(1);
             }
         }
+
+        public BasicNetwork Network
+        {
+            get
+            {
+                return m_network;
+            }
+        }
+
         public Predictor(TextBox txtOutput, CSVData data, int hiddenNodes, double percentValidation)
         {
             m_txtOutputWindow = txtOutput;

@@ -51,7 +51,7 @@ namespace MLHCTransactionPredictor
         {
             txtMain.Clear();
             btnAnalyze.Enabled = btnCreateNeuralNet.Enabled = btnOutputNormalized.Enabled = btnTrain.Enabled = 
-                btnSaveNetwork.Enabled = btnLoadNetwork.Enabled = false;
+                btnSaveNetwork.Enabled = btnLoadNetwork.Enabled = btnTestNetwork.Enabled = false;
             btnOpen.Enabled = true;
             m_data = null;
             m_predictor = null;
@@ -85,6 +85,7 @@ namespace MLHCTransactionPredictor
 
             btnTrain.Enabled = true;
             btnSaveNetwork.Enabled = true;
+            btnTestNetwork.Enabled = true;
         }
 
         private void btnTrain_Click(object sender, EventArgs e)
@@ -144,6 +145,13 @@ namespace MLHCTransactionPredictor
             txtHiddenNodes.Text = m_predictor.HiddenNodes.ToString();
 
             btnTrain.Enabled = true;
+            btnTestNetwork.Enabled = true;
+        }
+
+        private void btnTestNetwork_Click(object sender, EventArgs e)
+        {
+            frmTest testForm = new frmTest(m_predictor.Network, m_data.AnalystInputFields);
+            testForm.ShowDialog();
         }
     }
 }

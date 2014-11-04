@@ -59,6 +59,7 @@
             this.txtMaxTrainingCycles = new System.Windows.Forms.TextBox();
             this.btnSaveNetwork = new System.Windows.Forms.Button();
             this.btnLoadNetwork = new System.Windows.Forms.Button();
+            this.btnTestNetwork = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtMain
@@ -348,11 +349,23 @@
             this.btnLoadNetwork.UseVisualStyleBackColor = true;
             this.btnLoadNetwork.Click += new System.EventHandler(this.btnLoadNetwork_Click);
             // 
+            // btnTestNetwork
+            // 
+            this.btnTestNetwork.Enabled = false;
+            this.btnTestNetwork.Location = new System.Drawing.Point(242, 69);
+            this.btnTestNetwork.Name = "btnTestNetwork";
+            this.btnTestNetwork.Size = new System.Drawing.Size(109, 23);
+            this.btnTestNetwork.TabIndex = 33;
+            this.btnTestNetwork.Text = "Test Network";
+            this.btnTestNetwork.UseVisualStyleBackColor = true;
+            this.btnTestNetwork.Click += new System.EventHandler(this.btnTestNetwork_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 455);
+            this.Controls.Add(this.btnTestNetwork);
             this.Controls.Add(this.btnLoadNetwork);
             this.Controls.Add(this.btnSaveNetwork);
             this.Controls.Add(this.txtMaxTrainingCycles);
@@ -424,6 +437,7 @@
         private System.Windows.Forms.TextBox txtMaxTrainingCycles;
         private System.Windows.Forms.Button btnSaveNetwork;
         private System.Windows.Forms.Button btnLoadNetwork;
+        private System.Windows.Forms.Button btnTestNetwork;
     }
 }
 

@@ -76,6 +76,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Data\Export.csv" />
+    <None Include="Data\Export10.csv" />
+    <None Include="Data\Export11.csv" />
+    <None Include="Data\Export12.csv" />
     <None Include="Data\Export2.csv" />
     <None Include="Data\Export3.csv" />
     <None Include="Data\Export4.csv" />
@@ -84,6 +87,33 @@
     <None Include="Data\Export7.csv" />
     <None Include="Data\Export8.csv" />
     <None Include="Data\Export9.csv" />
+    <None Include="Data\Normalized.csv" />
+    <None Include="Data\Normalized.ega" />
+    <None Include="Data\Normalized10.csv" />
+    <None Include="Data\Normalized10.ega" />
+    <None Include="Data\Normalized11.csv" />
+    <None Include="Data\Normalized11.ega" />
+    <None Include="Data\Normalized12.csv" />
+    <None Include="Data\Normalized12.ega" />
+    <None Include="Data\Normalized2.csv" />
+    <None Include="Data\Normalized2.ega" />
+    <None Include="Data\Normalized3.csv" />
+    <None Include="Data\Normalized3.ega" />
+    <None Include="Data\Normalized4.csv" />
+    <None Include="Data\Normalized4.ega" />
+    <None Include="Data\Normalized5.csv" />
+    <None Include="Data\Normalized5.ega" />
+    <None Include="Data\Normalized6.csv" />
+    <None Include="Data\Normalized6.ega" />
+    <None Include="Data\Normalized7.csv" />
+    <None Include="Data\Normalized7.ega" />
+    <None Include="Data\Normalized8.csv" />
+    <None Include="Data\Normalized8.ega" />
+    <None Include="Data\Normalized9.csv" />
+    <None Include="Data\Normalized9.ega" />
+    <None Include="Data\Train11.eg" />
+    <None Include="Data\Train12.eg" />
+    <None Include="Data\Train9.eg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
