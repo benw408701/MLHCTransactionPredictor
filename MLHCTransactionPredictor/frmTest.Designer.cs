@@ -47,6 +47,10 @@
             this.txtAuditEntries = new System.Windows.Forms.TextBox();
             this.trkNotesLogged = new System.Windows.Forms.TrackBar();
             this.txtNotesLogged = new System.Windows.Forms.TextBox();
+            this.lblCancellation = new System.Windows.Forms.Label();
+            this.lblCloseTime = new System.Windows.Forms.Label();
+            this.txtCancellation = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trkLoanAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkLiens)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkActions)).BeginInit();
@@ -102,7 +106,7 @@
             // lblAuditEntries
             // 
             this.lblAuditEntries.AutoSize = true;
-            this.lblAuditEntries.Location = new System.Drawing.Point(265, 69);
+            this.lblAuditEntries.Location = new System.Drawing.Point(268, 157);
             this.lblAuditEntries.Name = "lblAuditEntries";
             this.lblAuditEntries.Size = new System.Drawing.Size(113, 13);
             this.lblAuditEntries.TabIndex = 5;
@@ -111,7 +115,7 @@
             // lblNotesLoged
             // 
             this.lblNotesLoged.AutoSize = true;
-            this.lblNotesLoged.Location = new System.Drawing.Point(265, 157);
+            this.lblNotesLoged.Location = new System.Drawing.Point(268, 245);
             this.lblNotesLoged.Name = "lblNotesLoged";
             this.lblNotesLoged.Size = new System.Drawing.Size(121, 13);
             this.lblNotesLoged.TabIndex = 6;
@@ -124,6 +128,7 @@
             this.cmbCoverageType.Name = "cmbCoverageType";
             this.cmbCoverageType.Size = new System.Drawing.Size(121, 21);
             this.cmbCoverageType.TabIndex = 7;
+            this.cmbCoverageType.SelectedIndexChanged += new System.EventHandler(this.updatePrediction);
             // 
             // cmbTransactionType
             // 
@@ -132,6 +137,7 @@
             this.cmbTransactionType.Name = "cmbTransactionType";
             this.cmbTransactionType.Size = new System.Drawing.Size(121, 21);
             this.cmbTransactionType.TabIndex = 8;
+            this.cmbTransactionType.SelectedIndexChanged += new System.EventHandler(this.updatePrediction);
             // 
             // trkLoanAmount
             // 
@@ -183,7 +189,7 @@
             // 
             // trkAuditEntries
             // 
-            this.trkAuditEntries.Location = new System.Drawing.Point(268, 97);
+            this.trkAuditEntries.Location = new System.Drawing.Point(271, 185);
             this.trkAuditEntries.Name = "trkAuditEntries";
             this.trkAuditEntries.Size = new System.Drawing.Size(242, 45);
             this.trkAuditEntries.TabIndex = 16;
@@ -191,7 +197,7 @@
             // 
             // txtAuditEntries
             // 
-            this.txtAuditEntries.Location = new System.Drawing.Point(389, 66);
+            this.txtAuditEntries.Location = new System.Drawing.Point(392, 154);
             this.txtAuditEntries.Name = "txtAuditEntries";
             this.txtAuditEntries.Size = new System.Drawing.Size(121, 20);
             this.txtAuditEntries.TabIndex = 17;
@@ -199,7 +205,7 @@
             // 
             // trkNotesLogged
             // 
-            this.trkNotesLogged.Location = new System.Drawing.Point(268, 185);
+            this.trkNotesLogged.Location = new System.Drawing.Point(271, 273);
             this.trkNotesLogged.Name = "trkNotesLogged";
             this.trkNotesLogged.Size = new System.Drawing.Size(242, 45);
             this.trkNotesLogged.TabIndex = 18;
@@ -207,17 +213,56 @@
             // 
             // txtNotesLogged
             // 
-            this.txtNotesLogged.Location = new System.Drawing.Point(389, 157);
+            this.txtNotesLogged.Location = new System.Drawing.Point(392, 245);
             this.txtNotesLogged.Name = "txtNotesLogged";
             this.txtNotesLogged.Size = new System.Drawing.Size(121, 20);
             this.txtNotesLogged.TabIndex = 19;
             this.txtNotesLogged.TextChanged += new System.EventHandler(this.txtNotesLogged_TextChanged);
+            // 
+            // lblCancellation
+            // 
+            this.lblCancellation.AutoSize = true;
+            this.lblCancellation.Location = new System.Drawing.Point(267, 13);
+            this.lblCancellation.Name = "lblCancellation";
+            this.lblCancellation.Size = new System.Drawing.Size(119, 13);
+            this.lblCancellation.TabIndex = 20;
+            this.lblCancellation.Text = "Cancellation Likelihood:";
+            // 
+            // lblCloseTime
+            // 
+            this.lblCloseTime.AutoSize = true;
+            this.lblCloseTime.Location = new System.Drawing.Point(268, 41);
+            this.lblCloseTime.Name = "lblCloseTime";
+            this.lblCloseTime.Size = new System.Drawing.Size(120, 13);
+            this.lblCloseTime.TabIndex = 21;
+            this.lblCloseTime.Text = "Closing Time Prediciton:";
+            // 
+            // txtCancellation
+            // 
+            this.txtCancellation.Location = new System.Drawing.Point(392, 10);
+            this.txtCancellation.Name = "txtCancellation";
+            this.txtCancellation.ReadOnly = true;
+            this.txtCancellation.Size = new System.Drawing.Size(49, 20);
+            this.txtCancellation.TabIndex = 22;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(392, 38);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(49, 20);
+            this.textBox1.TabIndex = 23;
             // 
             // frmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(533, 391);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtCancellation);
+            this.Controls.Add(this.lblCloseTime);
+            this.Controls.Add(this.lblCancellation);
             this.Controls.Add(this.txtNotesLogged);
             this.Controls.Add(this.trkNotesLogged);
             this.Controls.Add(this.txtAuditEntries);
@@ -270,5 +315,9 @@
         private System.Windows.Forms.TextBox txtAuditEntries;
         private System.Windows.Forms.TrackBar trkNotesLogged;
         private System.Windows.Forms.TextBox txtNotesLogged;
+        private System.Windows.Forms.Label lblCancellation;
+        private System.Windows.Forms.Label lblCloseTime;
+        private System.Windows.Forms.TextBox txtCancellation;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

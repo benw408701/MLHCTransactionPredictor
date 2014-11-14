@@ -138,5 +138,64 @@ namespace MLHCTransactionPredictor
             Int32.TryParse(txtNotesLogged.Text, out value);
             trkNotesLogged.Value = value;
         }
+
+        private void updatePrediction(object sender, EventArgs e)
+        {
+            List<double> inputNodes = new List<double>();
+
+            // Must add nodes in the following order:
+            // vCoverageType, vTransaction, nLoanAmount, nLiens, nActions, nAuditEntriesPerDay,
+            // nTotalNotesPerDay
+
+            AnalystField vCoverageType, vTransaction, nLoanAmount, nLiens, nActions,
+                nAuditEntriesPerDay, nTotalNotesPerDay;
+            vCoverageType = vTransaction = nLoanAmount = nLiens = nActions =
+                nAuditEntriesPerDay = nTotalNotesPerDay = null;
+            int nCoverageTypeClass, nTransactionClass;
+            nCoverageTypeClass = nTransactionClass = 0;
+
+            // Capture AnalystField objects for each named field
+            foreach(AnalystField field in m_inputFields)
+            {
+                switch(field.Name)
+                {
+                    case "vCoverageType":
+                        vCoverageType = field;
+                        break;
+                    case "vTransaction":
+                        vTransaction = field;
+                        break;
+                    case "nLoanAmount":
+                        nLoanAmount = field;
+                        break;
+                    case "nLiens":
+                        nLiens = field;
+                        break;
+                    case "nActions":
+                        nActions = field;
+                        break;
+                    case "nAuditEntriesPerDay":
+                        nAuditEntriesPerDay = field;
+                        break;
+                    case "nTotalNotesPerDay":
+                        nTotalNotesPerDay = field;
+                        break;
+                }
+            }
+
+            // Get class number for vCoverageType
+            foreach (ClassItem c in vCoverageType.Classes)
+                if (c.Name == cmbCoverageType.Text)
+                    nCoverageTypeClass = c.Index;
+
+            // Get class number for vTransaction
+            foreach (ClassItem c in vTransaction.Classes)
+                if (c.Name == cmbTransactionType.Text)
+                    nTransactionClass = c.Index;
+
+            // Endode vCoverageType
+            vCoverageType.Init();
+            double[] test = vCoverageType.EncodeEquilateral(nCoverageTypeClass);
+        }
     }
 }
