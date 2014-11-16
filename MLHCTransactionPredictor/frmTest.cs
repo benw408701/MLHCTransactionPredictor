@@ -123,7 +123,9 @@ namespace MLHCTransactionPredictor
         {
             int value;
             Int32.TryParse(txtLoanAmount.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out value);
-            trkLoanAmount.Value = value;
+
+            if(trkLoanAmount.Minimum <= value && trkLoanAmount.Maximum >= value)
+                trkLoanAmount.Value = value;
 
             updatePrediction(sender, e);
         }
@@ -132,7 +134,9 @@ namespace MLHCTransactionPredictor
         {
             int value;
             Int32.TryParse(txtLiens.Text, out value);
-            trkLiens.Value = value;
+
+            if(trkLiens.Minimum <= value && trkLiens.Maximum >= value)
+                trkLiens.Value = value;
 
             updatePrediction(sender, e);
         }
@@ -141,7 +145,9 @@ namespace MLHCTransactionPredictor
         {
             int value;
             Int32.TryParse(txtActions.Text, out value);
-            trkActions.Value = value;
+
+            if(trkActions.Minimum <= value && trkActions.Maximum >= value)
+                trkActions.Value = value;
 
             updatePrediction(sender, e);
         }
@@ -150,7 +156,9 @@ namespace MLHCTransactionPredictor
         {
             int value;
             Int32.TryParse(txtAuditEntries.Text, out value);
-            trkAuditEntries.Value = value;
+
+            if(trkAuditEntries.Minimum <= value && trkAuditEntries.Maximum >= value)
+                trkAuditEntries.Value = value;
 
             updatePrediction(sender, e);
         }
@@ -159,7 +167,9 @@ namespace MLHCTransactionPredictor
         {
             int value;
             Int32.TryParse(txtNotesLogged.Text, out value);
-            trkNotesLogged.Value = value;
+
+            if(trkNotesLogged.Minimum <= value && trkNotesLogged.Maximum >= value)
+                trkNotesLogged.Value = value;
 
             updatePrediction(sender, e);
         }
@@ -238,7 +248,7 @@ namespace MLHCTransactionPredictor
                     nTransactionClass = c.Index;
 
             // Get numerical values
-            Double.TryParse(txtLoanAmount.Text, out dLoanAmount);
+            Double.TryParse(txtLoanAmount.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out dLoanAmount);
             Double.TryParse(txtLiens.Text, out dLiens);
             Double.TryParse(txtActions.Text, out dActions);
             Double.TryParse(txtAuditEntries.Text, out dAuditEntries);
