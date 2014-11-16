@@ -150,7 +150,8 @@ namespace MLHCTransactionPredictor
 
         private void btnTestNetwork_Click(object sender, EventArgs e)
         {
-            frmTest testForm = new frmTest(m_predictor.Network, m_data.AnalystInputFields);
+            frmTest testForm = new frmTest(m_predictor.Network, m_data.AnalystInputFields,
+                m_data.AnalystOutputFields);
             testForm.ShowDialog();
         }
     }

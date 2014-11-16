@@ -50,7 +50,7 @@
             this.lblCancellation = new System.Windows.Forms.Label();
             this.lblCloseTime = new System.Windows.Forms.Label();
             this.txtCancellation = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNumDays = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trkLoanAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkLiens)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkActions)).BeginInit();
@@ -245,21 +245,20 @@
             this.txtCancellation.Size = new System.Drawing.Size(49, 20);
             this.txtCancellation.TabIndex = 22;
             // 
-            // textBox1
+            // txtNumDays
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(392, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(49, 20);
-            this.textBox1.TabIndex = 23;
+            this.txtNumDays.Location = new System.Drawing.Point(392, 38);
+            this.txtNumDays.Name = "txtNumDays";
+            this.txtNumDays.ReadOnly = true;
+            this.txtNumDays.Size = new System.Drawing.Size(49, 20);
+            this.txtNumDays.TabIndex = 23;
             // 
             // frmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(533, 391);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtNumDays);
             this.Controls.Add(this.txtCancellation);
             this.Controls.Add(this.lblCloseTime);
             this.Controls.Add(this.lblCancellation);
@@ -318,6 +317,6 @@
         private System.Windows.Forms.Label lblCancellation;
         private System.Windows.Forms.Label lblCloseTime;
         private System.Windows.Forms.TextBox txtCancellation;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNumDays;
     }
 }
