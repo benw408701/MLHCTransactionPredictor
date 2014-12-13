@@ -164,7 +164,7 @@ Export 11: Take export 10 and remove product
 			 Num Days to Close (number)
 	Results: Couldn't get error rate under 4.5%
 
-Export 12: Same as export 9, but the coverage type is a text string rather than an id number. Random sorted the results
+Export 12: Same as export 9, but the coverage type is a text string rather than an id number. Random sorted the rows in the input data
 	Inputs: File Number (skip)
 			Coverage Type (value)
 			Transaction (value)
